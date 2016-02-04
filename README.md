@@ -1,8 +1,7 @@
 # PhotoRestoration
 
 ##Our Approach
-1.  
-2. 
+
 ##current possible solution still requires "photoshop"
 1. [facetune](http://www.facetuneapp.com/)
 2. [retouch](http://www.colorpilot.com/retouch.html)
