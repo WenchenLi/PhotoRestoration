@@ -1,11 +1,29 @@
 # PhotoRestoration
-[proposal slides](https://docs.google.com/presentation/d/14VL0wPYdZIuOWYzobaYvf3Y_LnnijEuD2tCy4h8utjw/edit?usp=sharing)
-##Our Approach
+![alt text](http://www.crosswaysimages.ca/wp-content/uploads/2015/04/photo-restoration.jpg?quality=100.3015041915160)
 
+[proposal slides](https://docs.google.com/presentation/d/14VL0wPYdZIuOWYzobaYvf3Y_LnnijEuD2tCy4h8utjw/edit?usp=sharing)
 ##current possible solution still requires "photoshop"
 1. [facetune](http://www.facetuneapp.com/)
 2. [retouch](http://www.colorpilot.com/retouch.html)
 3. [retoucher](http://akvis.com/en/retoucher/index.php)
+
+##Our Approach
+1. Non-face
+	* Small tears, folds:Image Inpainting [4]
+	* Missing patches:
+		* Fragment-based Image Completion[8]
+		* Scene completion(background?) 
+2. Face
+	* Non-fine-grained features(cheeks, forehead):
+		* Small (Image Inpainting [4])
+		* Patch (Segmented-based image completion[8])
+	* Fine-grained features (Missing patches):
+		* Graph Laplace for Occluded Face Completion[6][7]
+		* Stronger conditional Generative Adversarial Network [5]
+		* The condition is no longer semantic description of faces like age or races, but the faces with “problematic” area.
+
+
+
 
 ##reference
 <!--1. [Scene Completion Using Millions of Photographs. James Hays, Alexei A. Efros. ACM Transactions on Graphics (SIGGRAPH 2007). August 2007, vol. 26, No. 3.](http://graphics.cs.cmu.edu/projects/scene-completion/)-->
