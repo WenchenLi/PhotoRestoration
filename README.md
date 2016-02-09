@@ -1,5 +1,5 @@
 # PhotoRestoration
-
+[proposal slides](https://docs.google.com/presentation/d/14VL0wPYdZIuOWYzobaYvf3Y_LnnijEuD2tCy4h8utjw/edit?usp=sharing)
 ##Our Approach
 
 ##current possible solution still requires "photoshop"
@@ -18,8 +18,7 @@
 4. Bertalmio, Marcelo, et al. "Image inpainting." Proceedings of the 27th annual conference on Computer graphics and interactive techniques. ACM Press/Addison-Wesley Publishing Co., 2000.
 5.  M. Mirza and S. Osindero. Conditional Generative Adversarial Nets. arXiv:1411.1784 [cs, stat], Nov. 2014. arXiv: 1411.1784 
 6.  Deng, Yue, Qionghai Dai, and Zengke Zhang. "Graph Laplace for occluded face completion and recognition." Image Processing, IEEE Transactions on 20.8 (2011): 2329-2338.
-7.  J. Wright, A. Yang, A. Ganesh, S. Sastry, and Y. Ma, “Robust face recognition via sparse representation,” IEEE Trans. Pattern Anal. Mach. Intell., vol. 31, no. 2, pp. 210–227, Feb. 2009.  									
-8.  Drori, Iddo, Daniel Cohen-Or, and Hezy Yeshurun. "Fragment-based image completion." ACM Transactions on Graphics (TOG). Vol. 22. No. 3. ACM, 2003.
+7.  J. Wright, A. Yang, A. Ganesh, S. Sastry, and Y. Ma, “Robust face recognition via sparse representation,” IEEE Trans. Pattern Anal. Mach. Intell., vol. 31, no. 2, pp. 210–227, Feb. 2009.  							8.  Drori, Iddo, Daniel Cohen-Or, and Hezy Yeshurun. "Fragment-based image completion." ACM Transactions on Graphics (TOG). Vol. 22. No. 3. ACM, 2003.
 				
 			
 		
