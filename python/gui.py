@@ -3,13 +3,17 @@ import ImageTk
 import Image
 import cv2
 import os
-from tese2 import *
-path ='rest-samp-before-2-208x300.jpg'
+path ='pyhton/rest-samp-before-2-208x300.jpg'
 root = tk.Tk()
 
-
-
-import_button = tk.Button(root,text="select photo").pack(fill=tk.X, side = tk.TOP, )
+def filePicker():
+    from Tkinter import Tk
+    from tkFileDialog import askopenfilename
+    Tk().withdraw() # we don't want a full GUI, so keep the root window from appearing
+    filename = askopenfilename() # show an "Open" dialog box and return the path to the selected file
+    print filename
+    return filename
+import_button = tk.Button(root,text="select photo",command=(lambda : filePicker())).pack(fill=tk.X, side = tk.TOP, )
 pick_button = tk.Button(root,text="pick area").pack(fill=tk.X, side = tk.TOP)
 restore_buttion = tk.Button(root,text="restore").pack(fill=tk.X, side = tk.TOP)
 
