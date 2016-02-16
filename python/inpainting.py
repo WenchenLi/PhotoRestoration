@@ -4,9 +4,9 @@ import cv2
 import sys
 
 def inpaint(p_image, p_mask):
-    if len(sys.argv) < 3:
-        print "Not enough params"
-        sys.exit()
+    # if len(sys.argv) < 3:
+    #     print "Not enough params"
+    #     sys.exit()
     img = cv2.imread(p_image)
     mask = cv2.imread(p_mask, 0)
     res = cv2.inpaint(img, mask, 3, cv2.INPAINT_NS)
@@ -16,6 +16,6 @@ def inpaint(p_image, p_mask):
     sys.exit()
 
 if __name__ == "__main__":
-    p_image = ""
-    p_mask =""
+    p_image = "/home/wenchen/frameworks/projects/PhotoRestoration/data/images/original/original_female_potrait.jpg"
+    p_mask ="mask.png"
     inpaint(p_image, p_mask)
