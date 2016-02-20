@@ -13,16 +13,6 @@ def filePicker():
     filename = askopenfilename()
     return filename
 
-# def SelectAndShowImage(root):
-#     img = cv2.imread(filePicker())
-#     b,g,r = cv2.split(img)#Rearrang the color channel
-#     img = cv2.merge((r,g,b))
-#     im = Image.fromarray(img)# Convert the Image object into a TkPhoto object
-#     imgtk = ImageTk.PhotoImage(image=im)
-#     tk.Label(root, image=imgtk).pack()#http://stackoverflow.com/questions/21979172/tkinter-display-other-windows
-#     root.mainloop()
-
-
 class App():
     def __init__(self, master):
         self.master = master
@@ -47,6 +37,7 @@ class App():
         self.canvas.bind("<ButtonRelease-1>", self.on_button_release)
         self._draw_image()
 
+        self.points_pool=[]
         # import_button = tk.Button(self.master, text="select photo", command=(lambda : SelectAndShowImage(root))).pack(fill=tk.X, side = tk.TOP, )
         # pick_button = tk.Button(self.master,text="select masks").pack(fill=tk.X, side = tk.TOP)
         save_button = tk.Button(self.master,text="save masks",command=(self.save_mask)).pack(fill=tk.X, side = tk.TOP)#this is intermediate , will delete later
@@ -54,14 +45,20 @@ class App():
         self.master.mainloop()
 
     def save_mask(self):
+
         curr_path = os.getcwd()
         new_path = curr_path.replace("/python", "/data/images/mask/")
         oldfileName = (self.file)[(self.file).rfind("/")+1:-4]
         output = ImageOps.fit(self.mask, self.orig_img.size, centering=(0.5, 0.5))
         draw = ImageDraw.Draw(self.mask)
-        for window in self.select_windows:
-            draw.rectangle(window,fill="white")
-        print self.select_windows
+
+        # for window in self.select_windows:
+        #     draw.rectangle(window,fill="white")
+        # print self.select_windows
+        # for point in self.points_pool:
+        draw.polygon(self.points_pool,fill="white")
+        # print self.select_windows
+
         output.paste(self.mask)
         self.mask_path = new_path+oldfileName+"_mask.png"
         output.save(self.mask_path)
@@ -74,21 +71,24 @@ class App():
         # save mouse drag start position
         self.start_x = event.x
         self.start_y = event.y
-        self.current_window.append((self.start_x,self.start_y))
+        # self.current_window.append((self.start_x,self.start_y))
+        self.points_pool.append((event.x,event.y))
+        print "appending start",(event.x,event.y)
         # create rectangle if not yet exist
         #if not self.rect:
-        self.rect = self.canvas.create_rectangle(self.x, self.y, 1, 1, fill="white")
+        self.rect = self.canvas.create_line(self.x, self.y, 1, 1, fill="white")
 
     def on_move_press(self, event):
         curX, curY = (event.x, event.y)
 
         # expand rectangle as you drag the mouse
         self.canvas.coords(self.rect, self.start_x, self.start_y, curX, curY)
-
     def on_button_release(self, event):
-        self.current_window.append((event.x,event.y))
-        self.select_windows.append(self.current_window)
-        self.current_window=[]
+        # self.current_window.append((event.x,event.y))
+        # self.select_windows.append(self.current_window)
+        # self.current_window=[]
+        self.points_pool.append((event.x,event.y))
+        print "appending end",(event.x,event.y)
 
 root = tk.Tk()
 App(root)
