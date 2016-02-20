@@ -17,6 +17,7 @@ class App():
     def __init__(self, master):
         self.master = master
         self.file = filePicker()
+        self.crop_face()
         self.orig_img = Image.open(self.file)
         self.tk_img = ImageTk.PhotoImage(self.orig_img)
         w, h = self.orig_img.size
@@ -44,6 +45,40 @@ class App():
         restore_button = tk.Button(self.master,text="restore",command=(lambda : inpaint(self.file,self.mask_path))).pack(fill=tk.X, side = tk.TOP)
         self.master.mainloop()
 
+    def crop_face(self):
+        # Get user supplied values
+        curr_path = os.getcwd()
+        imagePath = self.file
+        cascPath = curr_path.replace("/python", "/data/cascade/haarcascade_frontalface_default.xml")
+        face_path= curr_path.replace("/python", "/data/images/face_cropped/")
+        oldfileName = (self.file)[(self.file).rfind("/")+1:-4]
+        face_filename = face_path+oldfileName+"_face.png"
+        print face_filename
+        # Create the haar cascade
+        faceCascade = cv2.CascadeClassifier(cascPath)
+# /home/wenchen/frameworks/projects/PhotoRestoration/data/images/face_cropped
+# /home/wenchen/frameworks/projects/PhotoRestoration/data/face_cropped/original_female_potrait_face.png
+        # Read the image
+        image = cv2.imread(imagePath)
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+        # Detect faces in the image
+        faces = faceCascade.detectMultiScale(
+            gray,
+            scaleFactor=1.1,
+            minNeighbors=5,
+            minSize=(30, 30),
+            flags = cv2.cv.CV_HAAR_SCALE_IMAGE
+        )
+
+        print "Found {0} faces!".format(len(faces))
+
+        # Draw a rectangle around the faces
+        for (x, y, w, h) in faces:
+            cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
+            cv2.imwrite(face_filename,image[y:y+h,x:x+w])
+        # cv2.imshow("Faces found", image)
+        cv2.waitKey(0)
     def save_mask(self):
 
         curr_path = os.getcwd()
