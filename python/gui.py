@@ -34,14 +34,30 @@ class ToolBar():
 		self.rectangle_button = tk.Button(self.canvas, image=self.rectangle_not_selected_image,command=(self.select_rectangle_tool))
 		self.rectangle_button.pack(side=tk.RIGHT,padx=5,pady=5)
 		
+		self.brush_size = 5
+
+		self.brush_slider = tk.Scale(self.master, from_=1, to=10, orient=tk.HORIZONTAL,variable=self.brush_size,command=(self.change_slider_value))
+		self.brush_slider.set(5)
+		self.brush_slider.pack()
+
+		self.brush_size_image = tk.PhotoImage(file="../assets/brushsize_4.png")
+		self.brush_size_label = tk.Label(self.master,image=self.brush_size_image)
+		self.brush_size_label.pack()
+
 		self.rectangle_selected = False
 		self.brush_selected = True
 
+		self.save_mask_button = tk.Button(self.master,text="Save Mask")
+		self.save_mask_button.pack(side=tk.BOTTOM,fill=tk.X)
+		self.restore_button = tk.Button(self.master,text="Restore")
+		self.restore_button.pack(side=tk.BOTTOM,fill=tk.X)
 
 	def select_paintbrush(self):
 		if not self.brush_selected:
 			self.brush_button["image"] = self.brush_selected_image
 			self.brush_selected = True
+
+			self.toggle_on_paintbrush_slider()
 
 			self.rectangle_button["image"] = self.rectangle_not_selected_image
 			self.rectangle_selected = False
@@ -52,11 +68,26 @@ class ToolBar():
 			self.rectangle_button["image"] = self.rectangle_selected_image
 			self.rectangle_selected = True
 			
+			self.toggle_off_paintbrush_slider()
+
 			self.brush_button["image"] = self.brush_not_selected_image
 			self.brush_selected = False
 	
 	def select_paintbrush_size(self):
 		pass
+
+
+	def toggle_off_paintbrush_slider(self):
+		self.brush_slider.pack_forget()
+		self.brush_size_label.pack_forget()
+
+	def toggle_on_paintbrush_slider(self):
+		self.brush_slider.pack()
+		self.brush_size_label.pack()
+
+	def change_slider_value(self,val):
+		self.brush_size_image = tk.PhotoImage(file="../assets/brushsize_" + str(val) + ".png")
+		self.brush_size_label["image"] = self.brush_size_image
 
 	def close_window(self):
 		self.master.destroy()
@@ -176,6 +207,9 @@ class App():
         # self.current_window=[]
         self.points_pool.append((event.x,event.y))
         print "appending end",(event.x,event.y)
+
+    def switch_draw_method(self):
+		pass    	
 
 root = tk.Tk()
 App(root)
