@@ -29,7 +29,7 @@
 
 
 ## paper might be useful
-1. Aditya Khosla, Wilma A. Bainbridge, Antonio Torralba and Aude Oliva "Modifying the Memorability of Face Photographs"
+1. Aditya Khosla, Wilma A. Bainbridge, Antonio Torralba and Aude Oliva "Modifying the Memorability of Face Photographs."
 International Conference on Computer Vision (ICCV), 2013.
 
 ##reference
