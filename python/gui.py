@@ -1,7 +1,7 @@
 import Tkinter as tk
 from PIL import Image, ImageTk, ImageOps, ImageDraw
 import os
-from Tkconstants import LEFT, RIGHT, Y, END, BOTH, VERTICAL
+from Tkconstants import LEFT, RIGHT, Y, END, BOTH, VERTICAL, ALL, CURRENT
 
 import numpy as np
 import cv2
@@ -101,6 +101,7 @@ class App():
         self.master = master
         self.curr_path= os.getcwd()
         self.platform = platform.system()
+
         scrollbar = tk.Scrollbar(self.master,orient=VERTICAL)
         scrollbar.pack(side=RIGHT, fill=Y)
 
@@ -149,8 +150,10 @@ class App():
         self.mask_draw = ImageDraw.Draw(self.mask)
 
         self.mask_path = None
-        self.canvas_pic = tk.Canvas(master, width=w, height=h)
+        self.canvas_pic = tk.Canvas(master, width=w, height=h,yscrollcommand=scrollbar.set)
+        self.canvas.config(scrollregion=self.canvas_pic.bbox(CURRENT))
         self.canvas_pic.pack()
+
         self.x = 0
         self.y = 0
         self.select_windows = []
@@ -160,14 +163,19 @@ class App():
         self.start_x = None
         self.start_y = None
         self.canvas_pic.bind("<ButtonPress-1>", self.on_button_press_on_brush_mode)
+        # self.canvas_pic.bind("<MouseWheel>", self._on_mousewheel)
+
         # self.canvas.bind("<B1-Motion>", self.on_move_press)
         # self.canvas.bind("<ButtonRelease-1>", self.on_button_release)
         self._draw_image()
         self.face_coordinate = None
         self.points_pool = []
-       
-        scrollbar.config(command=self.canvas_pic.yview_moveto(100))
 
+
+        scrollbar.config(command=self.canvas_pic.yview)
+
+    # def _on_mousewheel(self, event):
+    #     self.canvas.yview_scroll(-1*(event.delta/120), "units")
     def photoimage(self,imgFile):
         #mac need to convert image format on imagefilePath
         if self.platform =='Darwin':
@@ -225,7 +233,7 @@ class App():
         face_path = curr_path.replace("/python", "/data/images/face_cropped/")
         oldfileName = (self.file)[(self.file).rfind("/") + 1:-4]
         face_filename = face_path + oldfileName + "_face.png"
-        print "saving to " face_filename
+        print "saving to ", face_filename
         faceCascade = cv2.CascadeClassifier(cascPath)
         image = cv2.imread(imagePath)
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
