@@ -105,13 +105,9 @@ class App():
         # self.toolbar = ToolBar(tk.Toplevel(self.master))
         self.frame = tk.Frame(self.master)
         self.frame.pack()
-        self.canvas = tk.Canvas(master, width=130, height=300)
-        self.canvas.pack()
-        save_button = tk.Button(self.master, text="save masks", command=(self.save_mask)).pack(fill=tk.X,
-                                                                                               side=tk.TOP)  # this is intermediate , will delete later
-        restore_button = tk.Button(self.master, text="restore",
-                                   command=(lambda: inpaint(self.file, self.mask_path))).pack(fill=tk.X, side=tk.TOP)
-
+        self.canvas = tk.Canvas(self.frame, width=130, height=300)
+        self.canvas.pack(side=tk.RIGHT)
+        
         # self.master.title("Toolbar")
         # self.master.maxsize(130, 300)
         # self.master.minsize(130, 300)
@@ -129,18 +125,23 @@ class App():
 
         self.brush_size = 5
 
-        self.brush_slider = tk.Scale(self.master, from_=1, to=10, orient=tk.HORIZONTAL, variable=self.brush_size,
+        self.brush_slider = tk.Scale(self.canvas, from_=1, to=10, orient=tk.HORIZONTAL, variable=self.brush_size,
                                      command=(self.change_slider_value))
         self.brush_slider.set(5)
         self.brush_slider.pack()
 
         self.brush_size_image = tk.PhotoImage(file="../assets/brushsize_4.png")
-        self.brush_size_label = tk.Label(self.master, image=self.brush_size_image)
+        self.brush_size_label = tk.Label(self.canvas, image=self.brush_size_image)
         self.brush_size_label.pack()
 
         self.rectangle_selected = False
         self.brush_selected = True
 
+
+        save_button = tk.Button(self.canvas, text="save masks", command=(self.save_mask)).pack(fill=tk.X,
+                                                                                               side=tk.TOP)  # this is intermediate , will delete later
+        restore_button = tk.Button(self.canvas, text="restore",
+                                   command=(lambda: inpaint(self.file, self.mask_path))).pack(fill=tk.X, side=tk.TOP)
 
         self.file = filePicker()
         self.crop_face()
@@ -151,8 +152,8 @@ class App():
         self.mask_draw = ImageDraw.Draw(self.mask)
 
         self.mask_path = None
-        self.canvas_pic = tk.Canvas(master, width=w, height=h)
-        self.canvas_pic.pack()
+        self.canvas_pic = tk.Canvas(self.frame, width=w, height=h)
+        self.canvas_pic.pack(side=tk.LEFT)
         self.x = 0
         self.y = 0
         self.select_windows = []
