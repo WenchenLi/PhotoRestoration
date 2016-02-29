@@ -7,6 +7,11 @@
 2. [retouch](http://www.colorpilot.com/retouch.html)
 3. [retoucher](http://akvis.com/en/retoucher/index.php)
 
+## Ideas
+* For inpainting to work, our algorithm need to apply inpainting from the nearest neighbor of the missing part or creases, inpainting will not work if the area is big, in other words, our algorithm need to shrink the size of user defined problematic area until it's good enough to do inpainting.
+
+* GAN in the sense generator now is the restored instance of image and discriminator classify whether current  restored instance is a good repairing. The problem is this network needs so many data to train the generator at least, but we can have databases of faces and fake the problematic area.
+
 ##Our Approach
 1. Non-face
 	* Small tears, folds:Image Inpainting [4]
@@ -23,7 +28,9 @@
 		* The condition is no longer semantic description of faces like age or races, but the faces with “problematic” area.
 
 
-
+## paper might be useful
+1. Aditya Khosla, Wilma A. Bainbridge, Antonio Torralba and Aude Oliva "Modifying the Memorability of Face Photographs."
+International Conference on Computer Vision (ICCV), 2013.
 
 ##reference
 <!--1. [Scene Completion Using Millions of Photographs. James Hays, Alexei A. Efros. ACM Transactions on Graphics (SIGGRAPH 2007). August 2007, vol. 26, No. 3.](http://graphics.cs.cmu.edu/projects/scene-completion/)-->
