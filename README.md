@@ -12,6 +12,7 @@
 
 * GAN in the sense generator now is the restored instance of image and discriminator classify whether current  restored instance is a good repairing. The problem is this network needs so many data to train the generator at least, but we can have databases of faces and fake the problematic area.
 
+* Train faster RCNN to detect problematic area of the image in real time.(TODO: solve let the user select the area to fix)
 ##Our Approach
 1. Non-face
 	* Small tears, folds:Image Inpainting [4]
