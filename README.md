@@ -34,6 +34,7 @@
 International Conference on Computer Vision (ICCV), 2013.
 2. [cvpr 2015 Image and Video Processing and Restoration](http://techtalks.tv/events/350/1619/)
 3. [Generate image analogies using neural matching and blending](https://github.com/awentzonline/image-analogies)
+4. [Semantic Style Transfer and Turning Two-Bit Doodles into Fine Artworks](http://nucl.ai/semantic-style-transfer.pdf)
 
 ##reference
 <!--1. [Scene Completion Using Millions of Photographs. James Hays, Alexei A. Efros. ACM Transactions on Graphics (SIGGRAPH 2007). August 2007, vol. 26, No. 3.](http://graphics.cs.cmu.edu/projects/scene-completion/)-->
