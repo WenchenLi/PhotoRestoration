@@ -39,9 +39,14 @@ International Conference on Computer Vision (ICCV), 2013.
 4. [Semantic Style Transfer and Turning Two-Bit Doodles into Fine Artworks](http://nucl.ai/semantic-style-transfer.pdf)
 
 #### inpainting related
-5. [Shepard Convolutional Neural Networks](http://papers.nips.cc/paper/5774-shepard-convolutional-neural-networks.pdf)
-6. [Image Denoising and Inpainting with Deep Neural Networks](http://papers.nips.cc/paper/4686-image-denoising-and-inpainting-with-deep-neural-networks.pdf)
+1. [Shepard Convolutional Neural Networks](http://papers.nips.cc/paper/5774-shepard-convolutional-neural-networks.pdf)
+2. [Image Denoising and Inpainting with Deep Neural Networks](http://papers.nips.cc/paper/4686-image-denoising-and-inpainting-with-deep-neural-networks.pdf)
 
+#### GAN github resources
+1. [original work](https://github.com/goodfeli/adversarial) 
+2. [tensorflow implementation](https://github.com/carpedm20/DCGAN-tensorflow)
+3. [Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks](https://github.com/Newmu/dcgan_code)
+4. [Conditional generative adversarial networks for convolutional face generation](https://github.com/hans/adversarial)
 ##reference
 <!--1. [Scene Completion Using Millions of Photographs. James Hays, Alexei A. Efros. ACM Transactions on Graphics (SIGGRAPH 2007). August 2007, vol. 26, No. 3.](http://graphics.cs.cmu.edu/projects/scene-completion/)-->
 <!--2. [Sketch2Photo: Internet Image Montage. ACM SIGGRAPH ASIA 2009, ACM Transactions on Graphics. Tao Chen, Ming-Ming Cheng, Ping Tan, Ariel Shamir, Shi-Min Hu.](http://cg.cs.tsinghua.edu.cn/montage/main.htm)-->
