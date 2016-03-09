@@ -8,6 +8,8 @@
 3. [retoucher](http://akvis.com/en/retoucher/index.php)
 
 ## Ideas
+* Inspired by the network in network architecture proprosed by GoogLeNet as well as the R-CNN transition to faster-R-CNN, we want to design an architecture of the network based on the Generative Adversarial Networks (GAN) and convert the pipline of photo restoration within the network. For inpainting, we've found two CNN related papers.  
+
 * For inpainting to work, our algorithm need to apply inpainting from the nearest neighbor of the missing part or creases, inpainting will not work if the area is big, in other words, our algorithm need to shrink the size of user defined problematic area until it's good enough to do inpainting.
 
 * GAN in the sense generator now is the restored instance of image and discriminator classify whether current  restored instance is a good repairing. The problem is this network needs so many data to train the generator at least, but we can have databases of faces and fake the problematic area.
@@ -36,11 +38,15 @@ International Conference on Computer Vision (ICCV), 2013.
 3. [Generate image analogies using neural matching and blending](https://github.com/awentzonline/image-analogies)
 4. [Semantic Style Transfer and Turning Two-Bit Doodles into Fine Artworks](http://nucl.ai/semantic-style-transfer.pdf)
 
+#### inpainting related
+5. [Shepard Convolutional Neural Networks](http://papers.nips.cc/paper/5774-shepard-convolutional-neural-networks.pdf)
+6. [Image Denoising and Inpainting with Deep Neural Networks](http://papers.nips.cc/paper/4686-image-denoising-and-inpainting-with-deep-neural-networks.pdf)
+
 ##reference
 <!--1. [Scene Completion Using Millions of Photographs. James Hays, Alexei A. Efros. ACM Transactions on Graphics (SIGGRAPH 2007). August 2007, vol. 26, No. 3.](http://graphics.cs.cmu.edu/projects/scene-completion/)-->
 <!--2. [Sketch2Photo: Internet Image Montage. ACM SIGGRAPH ASIA 2009, ACM Transactions on Graphics. Tao Chen, Ming-Ming Cheng, Ping Tan, Ariel Shamir, Shi-Min Hu.](http://cg.cs.tsinghua.edu.cn/montage/main.htm)-->
 <!--3. [Supervised Learning of Semantics-Preserving Hashing via Deep Neural Networks for Large-Scale Image Search Huei-Fang Yang, Kevin Lin, Chu-Song Chen arXiv preprint arXiv:1507.00101](http://arxiv.org/abs/1507.00101)-->
-<!--4. ["Generative Adversarial Networks." Ian J. Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, Yoshua Bengio. ArXiv 2014.](http://arxiv.org/abs/1406.2661)-->
+1. ["Generative Adversarial Networks." Ian J. Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, Yoshua Bengio. ArXiv 2014.](http://arxiv.org/abs/1406.2661)
 1. Dale, Kevin, et al. "Image restoration using online photo collections."Computer Vision, 2009 IEEE 12th International Conference on. IEEE, 2009.
 2. Geman, Stuart, and Donald Geman. "Stochastic relaxation, Gibbs distributions, and the Bayesian restoration of images." Pattern Analysis and Machine Intelligence, IEEE Transactions on 6 (1984): 721-741.
 3. Dong, Chao, et al. "Learning a deep convolutional network for image super-resolution." Computer Vision–ECCV 2014. Springer International Publishing, 2014. 184-199.
