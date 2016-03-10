@@ -32,11 +32,15 @@
 
 
 ## resources might be useful
-1. Aditya Khosla, Wilma A. Bainbridge, Antonio Torralba and Aude Oliva "Modifying the Memorability of Face Photographs."
-International Conference on Computer Vision (ICCV), 2013.
+
+#### general ideas
 2. [cvpr 2015 Image and Video Processing and Restoration](http://techtalks.tv/events/350/1619/)
 3. [Generate image analogies using neural matching and blending](https://github.com/awentzonline/image-analogies)
 4. [Semantic Style Transfer and Turning Two-Bit Doodles into Fine Artworks](http://nucl.ai/semantic-style-transfer.pdf)
+
+#### datasets
+1. Aditya Khosla, Wilma A. Bainbridge, Antonio Torralba and Aude Oliva "Modifying the Memorability of Face Photographs."
+International Conference on Computer Vision (ICCV), 2013.
 
 #### inpainting related
 1. [Shepard Convolutional Neural Networks](http://papers.nips.cc/paper/5774-shepard-convolutional-neural-networks.pdf)
@@ -47,6 +51,10 @@ International Conference on Computer Vision (ICCV), 2013.
 2. [tensorflow implementation](https://github.com/carpedm20/DCGAN-tensorflow)
 3. [Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks](https://github.com/Newmu/dcgan_code)
 4. [Conditional generative adversarial networks for convolutional face generation](https://github.com/hans/adversarial)
+
+#### CNN image search
+1.[Cross-dimensional Weighting (CroW) aggregation(with repo,search based on CroW extracted by CNN)](https://github.com/yahoo/crow)
+
 ##reference
 <!--1. [Scene Completion Using Millions of Photographs. James Hays, Alexei A. Efros. ACM Transactions on Graphics (SIGGRAPH 2007). August 2007, vol. 26, No. 3.](http://graphics.cs.cmu.edu/projects/scene-completion/)-->
 <!--2. [Sketch2Photo: Internet Image Montage. ACM SIGGRAPH ASIA 2009, ACM Transactions on Graphics. Tao Chen, Ming-Ming Cheng, Ping Tan, Ariel Shamir, Shi-Min Hu.](http://cg.cs.tsinghua.edu.cn/montage/main.htm)-->
