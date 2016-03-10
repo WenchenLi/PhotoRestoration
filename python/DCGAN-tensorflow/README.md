@@ -3,6 +3,10 @@ DCGAN in Tensorflow
 Tensorflow implementation of [Deep Convolutional Generative Adversarial Networks](http://arxiv.org/abs/1511.06434) which is a stabilize Generative Adversarial Networks. The referenced torch code can be found [here](https://github.com/soumith/dcgan.torch).
 
 *To avoid the fast convergence of D (discriminator) network, G (generatior) network is updatesd twice for each D network update which is a different from original paper.*
+
+## TODO
+* add snapshot func of the training model
+
 Prerequisites
 -------------
 - Python 2.7 or Python 3.3+
