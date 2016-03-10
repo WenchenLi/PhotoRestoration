@@ -5,6 +5,7 @@
 4. [cmu Frontal Face Images](http://vasc.ri.cmu.edu/idb/html/face/frontal_images/)
 5. [10k US Adult Faces Database](http://www.wilmabainbridge.com/facememorability2.html)
 6. [LFWcrop Face Dataset](http://conradsanderson.id.au/lfwcrop/)
+7. [Large-scale CelebFaces Attributes (CelebA) Dataset](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html)
 
 # A good description of those datasets
 [here](https://www.kairos.com/blog/60-facial-recognition-databases)
