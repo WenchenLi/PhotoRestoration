@@ -27,7 +27,7 @@ def main(_):
     if not os.path.exists(FLAGS.sample_dir):
         os.makedirs(FLAGS.sample_dir)
 
-    with tf.Session() as sess:
+    with tf.Session(config=tf.ConfigProto(log_device_placement=True)) as sess:
         if FLAGS.dataset == 'mnist':
             dcgan = DCGAN(sess, image_size=FLAGS.image_size, batch_size=FLAGS.batch_size, y_dim=10,
                     dataset_name=FLAGS.dataset, is_crop=FLAGS.is_crop, checkpoint_dir=FLAGS.checkpoint_dir)
@@ -49,6 +49,5 @@ def main(_):
         # Below is codes for visualization
         OPTION = 2
         visualize(sess, dcgan, FLAGS, OPTION)
-
 if __name__ == '__main__':
     tf.app.run()

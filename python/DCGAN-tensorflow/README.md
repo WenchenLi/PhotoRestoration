@@ -5,7 +5,7 @@ Tensorflow implementation of [Deep Convolutional Generative Adversarial Networks
 *To avoid the fast convergence of D (discriminator) network, G (generatior) network is updatesd twice for each D network update which is a different from original paper.*
 
 ## TODO
-* add snapshot func of the training model (checkpoints)
+* try small size (64 by 64 face) and grey image first 
 
 Prerequisites
 -------------
