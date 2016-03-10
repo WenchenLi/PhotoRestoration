@@ -6,6 +6,7 @@ Tensorflow implementation of [Deep Convolutional Generative Adversarial Networks
 
 ## TODO
 * try small size (64 by 64 face) and grey image first 
+* 
 
 Prerequisites
 -------------
