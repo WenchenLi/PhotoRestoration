@@ -38,10 +38,11 @@ Or, you can use your own dataset (without central crop) by:
     $ python main.py --dataset DATASET_NAME
 
 
-Results
--------
+# Results
 
-Training details
-----------------
 
+# Training details
+
+# Contributors
+This work is build upon [DCGAN-tensorflow](https://github.com/carpedm20/DCGAN-tensorflow) with good amount of modification for photo restoration.
 
