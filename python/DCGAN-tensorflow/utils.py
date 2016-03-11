@@ -1,6 +1,8 @@
 """
 Some codes from https://github.com/Newmu/dcgan_code
 """
+import cv2
+
 import math
 import json
 import random
@@ -9,13 +11,28 @@ import scipy.misc
 import numpy as np
 from time import gmtime, strftime
 
+
+
 pp = pprint.PrettyPrinter()
 
 get_stddev = lambda x, k_h, k_w: 1/math.sqrt(k_w*k_h*x.get_shape()[-1])
 
-def get_image(image_path, image_size, is_crop=True):
-    return transform(imread(image_path), image_size, is_crop)
+def get_image(image_path, image_size, is_crop=True,is_crop_face=False):
+  if not is_crop_face:return transform(imread(image_path), image_size, is_crop)
+  else：return transform(crop_face(imread(image_path)), image_size, is_crop)
 
+def crop_face(image):
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        faces = faceCascade.detectMultiScale(
+            gray,
+            scaleFactor=1.1,
+            minNeighbors=5,
+            minSize=(30, 30),
+            flags=cv2.CASCADE_SCALE_IMAGE
+        )
+        for (x, y, w, h) in faces:#now only hope all images in the training data only has one face
+            return image[y:y + h, x:x + w]
+        
 def save_images(images, size, image_path):
     return imsave(inverse_transform(images), size, image_path)
 
