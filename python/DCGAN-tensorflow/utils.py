@@ -10,6 +10,7 @@ import pprint
 import scipy.misc
 import numpy as np
 from time import gmtime, strftime
+import os
 
 
 
@@ -17,11 +18,16 @@ pp = pprint.PrettyPrinter()
 
 get_stddev = lambda x, k_h, k_w: 1/math.sqrt(k_w*k_h*x.get_shape()[-1])
 
-def get_image(image_path, image_size, is_crop=True,is_crop_face=False):
+def get_image(image_path, image_size, is_crop=False,is_crop_face= False):
   if not is_crop_face:return transform(imread(image_path), image_size, is_crop)
-  else：return transform(crop_face(imread(image_path)), image_size, is_crop)
+  else:return transform(crop_face(cv2.imread(image_path)), image_size, is_crop)
 
 def crop_face(image):
+        curr_path = os.getcwd()
+        print 'curr_path',curr_path
+        cascPath = curr_path.replace("python/DCGAN-tensorflow", "/data/cascade/haarcascade_frontalface_default.xml")
+        print 'cascPath',cascPath
+        faceCascade = cv2.CascadeClassifier(cascPath)
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         faces = faceCascade.detectMultiScale(
             gray,
@@ -32,7 +38,9 @@ def crop_face(image):
         )
         for (x, y, w, h) in faces:#now only hope all images in the training data only has one face
             return image[y:y + h, x:x + w]
-        
+
+        return image
+
 def save_images(images, size, image_path):
     return imsave(inverse_transform(images), size, image_path)
 
