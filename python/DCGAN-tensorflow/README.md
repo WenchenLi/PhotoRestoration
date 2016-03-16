@@ -10,9 +10,14 @@ Tensorflow implementation of [Deep Convolutional Generative Adversarial Networks
 
 
 ## TODO
-* try small size (64 by 64 face) and grey image first 
+<!--* try small size (64 by 64 face) and grey image first 
 * define the  loss function of the discriminator such that it is used to differenciate whether it is a good fixation by generator instead of just accept it is a face(since face with a blank area most of the time is still can be seen as a face), refer to [patchMatch](http://gfx.cs.princeton.edu/gfx/pubs/Barnes_2009_PAR/patchmatch.pdf) paper regularizer might be helpful.
-* try residual net for generator ( probably not a good idea here, since we prefer remain the original image representation instead of an encoded general or abstract concept).
+* try residual net for generator ( probably not a good idea here, since we prefer remain the original image representation instead of an encoded general or abstract concept).-->
+1. Find a CNN that is trained on faces with the face recognistion task
+2. Take the first FC right after Conv As Z
+3. Adjust size of Z as the input to the Generator
+4. worry about blending later  
+5. Based on the concept of residual net, add encoded infomation of the problematic image into each layer (maybe face CNN) generator CNN to enforce the CNN to not to be too general/abstract about the input image.
 
 Prerequisites
 -------------
