@@ -4,10 +4,13 @@ Tensorflow implementation of [Deep Convolutional Generative Adversarial Networks
 
 *To avoid the fast convergence of D (discriminator) network, G (generatior) network is updatesd twice for each D network update which is a different from original paper.*
 
+## IDEA
+* encode the image using conv net as input z to generator, for each layer(or every other layer) of generator encode the input image using convolution and stack together the combined feature maps until it generating x (the image send to discriminator)
+
 ## TODO
 * try small size (64 by 64 face) and grey image first 
 * define the  loss function of the discriminator such that it is used to differenciate whether it is a good fixation by generator instead of just accept it is a face(since face with a blank area most of the time is still can be seen as a face), refer to [patchMatch](http://gfx.cs.princeton.edu/gfx/pubs/Barnes_2009_PAR/patchmatch.pdf) paper regularizer might be helpful.
-* try residual net for generator
+* try residual net for generator ( probably not a good idea here, since we prefer remain the original image representation instead of an encoded general or abstract concept).
 
 Prerequisites
 -------------
