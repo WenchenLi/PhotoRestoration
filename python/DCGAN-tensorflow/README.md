@@ -46,3 +46,6 @@ Or, you can use your own dataset (without central crop) by:
 # Contributors
 This work is build upon [DCGAN-tensorflow](https://github.com/carpedm20/DCGAN-tensorflow) with good amount of modification for photo restoration.
 
+# References
+ * [Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks](https://github.com/Newmu/dcgan_code)
+ 
