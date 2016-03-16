@@ -1,11 +1,13 @@
-DCGAN in Tensorflow
+DCGAN in Tensorflow for photo restoration
 ====================
 Tensorflow implementation of [Deep Convolutional Generative Adversarial Networks](http://arxiv.org/abs/1511.06434) which is a stabilize Generative Adversarial Networks. The referenced torch code can be found [here](https://github.com/soumith/dcgan.torch).
 
 *To avoid the fast convergence of D (discriminator) network, G (generatior) network is updatesd twice for each D network update which is a different from original paper.*
 
 ## IDEA
-* encode the image using conv net as input z to generator, for each layer(or every other layer) of generator encode the input image using convolution and stack together the combined feature maps until it generating x (the image send to discriminator)
+1. encode the image using conv net as **input z** to generator, for each layer(or every other layer) of generator encode the input image using convolution and stack together the combined feature maps until it **generating x** (the image send to discriminator)
+2. Or encode the problematic image as **conditional embedding y** using convNet first,and use randomnized seed **z**, but still the same stack thing. 
+
 
 ## TODO
 * try small size (64 by 64 face) and grey image first 
