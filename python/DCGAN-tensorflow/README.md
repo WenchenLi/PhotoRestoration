@@ -59,4 +59,4 @@ This work is build upon [DCGAN-tensorflow](https://github.com/carpedm20/DCGAN-te
 
 # References
  * [Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks](https://github.com/Newmu/dcgan_code)
- 
+ * [One-Shot Generalization in Deep Generative Models](http://arxiv.org/pdf/1603.05027.pdf) 
