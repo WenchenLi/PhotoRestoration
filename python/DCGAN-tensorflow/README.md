@@ -18,6 +18,7 @@ Tensorflow implementation of [Deep Convolutional Generative Adversarial Networks
 3. Adjust size of Z as the input to the Generator
 4. worry about blending later  
 5. Based on the concept of residual net, add encoded infomation of the problematic image into each layer (maybe face CNN) generator CNN to enforce the CNN to not to be too general/abstract about the input image.
+6. email the possibility of generate faces based on [DRAW: A Recurrent Neural Network For Image Generation](http://arxiv.org/pdf/1502.04623v2.pdf)
 
 Prerequisites
 -------------
