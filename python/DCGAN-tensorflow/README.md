@@ -16,9 +16,10 @@ Tensorflow implementation of [Deep Convolutional Generative Adversarial Networks
 1. Find a CNN that is trained on faces with the face recognistion task
 2. Take the first FC right after Conv As Z
 3. Adjust size of Z as the input to the Generator
-4. worry about blending later  
+4. worry about blending later
 5. Based on the concept of residual net, add encoded infomation of the problematic image into each layer (maybe face CNN) generator CNN to enforce the CNN to not to be too general/abstract about the input image.
 6. email the possibility of generate faces based on [DRAW: A Recurrent Neural Network For Image Generation](http://arxiv.org/pdf/1502.04623v2.pdf)
+7. Original work use cross entropy in the generator, we should use MSE instead [reference](https://www.reddit.com/r/MachineLearning/comments/3klqdh/q_whats_the_difference_between_crossentropy_and/)
 
 Prerequisites
 -------------
@@ -56,8 +57,8 @@ Or, you can use your own dataset (without central crop) by:
 # Training details
 
 # Contributors
-This work is build upon [DCGAN-tensorflow](https://github.com/carpedm20/DCGAN-tensorflow) with good amount of modification for photo restoration.
+This work is a forked branch of [DCGAN-tensorflow](https://github.com/carpedm20/DCGAN-tensorflow) with good amount of modification for photo restoration.
 
 # References
  * [Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks](https://github.com/Newmu/dcgan_code)
- * [One-Shot Generalization in Deep Generative Models](http://arxiv.org/pdf/1603.05027.pdf) 
+ * [One-Shot Generalization in Deep Generative Models](http://arxiv.org/pdf/1603.05027.pdf)
