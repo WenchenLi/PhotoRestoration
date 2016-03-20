@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 """
-Some codes from https://github.com/Newmu/dcgan_code
+Some code from https://github.com/Newmu/dcgan_code
 """
 import cv2
 
@@ -12,14 +13,15 @@ import numpy as np
 from time import gmtime, strftime
 
 
-
 pp = pprint.PrettyPrinter()
 
 get_stddev = lambda x, k_h, k_w: 1/math.sqrt(k_w*k_h*x.get_shape()[-1])
 
 def get_image(image_path, image_size, is_crop=True,is_crop_face=False):
-  if not is_crop_face:return transform(imread(image_path), image_size, is_crop)
-  else：return transform(crop_face(imread(image_path)), image_size, is_crop)
+  if not is_crop_face:
+      return transform(imread(image_path), image_size, is_crop)
+  else:
+      return transform(crop_face(imread(image_path)), image_size, is_crop)
 
 def crop_face(image):
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -32,12 +34,12 @@ def crop_face(image):
         )
         for (x, y, w, h) in faces:#now only hope all images in the training data only has one face
             return image[y:y + h, x:x + w]
-        
+
 def save_images(images, size, image_path):
     return imsave(inverse_transform(images), size, image_path)
 
 def imread(path):
-    return scipy.misc.imread(path).astype(np.float)
+    return cv2.imread(path).astype(np.float)
 
 def merge_images(images, size):
     return inverse_transform(images)
@@ -110,8 +112,8 @@ def to_json(output_path, *layers):
 
                 lines += """
                     var layer_%s = {
-                        "layer_type": "fc", 
-                        "sy": 1, "sx": 1, 
+                        "layer_type": "fc",
+                        "sy": 1, "sx": 1,
                         "out_sx": 1, "out_sy": 1,
                         "stride": 1, "pad": 0,
                         "out_depth": %s, "in_depth": %s,
@@ -127,7 +129,7 @@ def to_json(output_path, *layers):
 
                 lines += """
                     var layer_%s = {
-                        "layer_type": "deconv", 
+                        "layer_type": "deconv",
                         "sy": 5, "sx": 5,
                         "out_sx": %s, "out_sy": %s,
                         "stride": 2, "pad": 1,
