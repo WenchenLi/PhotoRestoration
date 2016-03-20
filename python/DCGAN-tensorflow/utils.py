@@ -18,18 +18,20 @@ pp = pprint.PrettyPrinter()
 
 get_stddev = lambda x, k_h, k_w: 1/math.sqrt(k_w*k_h*x.get_shape()[-1])
 
-def get_image(image_path, image_size, is_crop=False,is_crop_face= False):
+def get_image(image_path, image_size, is_crop=False,is_crop_face= False, create_mask = False):
   if not is_crop_face:
       return transform(imread(image_path), image_size, is_crop)
   else:
       return transform(crop_face(cv2.imread(image_path)), image_size, is_crop)
 
+def get_img_and_mask(image_path):
+	return mask_img(crop_face(cv2.imread(image_path)))
 
 def crop_face(image):
         curr_path = os.getcwd()
-        print 'curr_path',curr_path
+        #print 'curr_path',curr_path
         cascPath = curr_path.replace("python/DCGAN-tensorflow", "/data/cascade/haarcascade_frontalface_default.xml")
-        print 'cascPath',cascPath
+        #print 'cascPath',cascPath
         faceCascade = cv2.CascadeClassifier(cascPath)
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         faces = faceCascade.detectMultiScale(
@@ -39,8 +41,28 @@ def crop_face(image):
             minSize=(30, 30),
             flags=cv2.CASCADE_SCALE_IMAGE
         )
-        for (x, y, w, h) in faces:#now only hope all images in the training data only has one face
-            return image[y:y + h, x:x + w]
+        if len(faces) > 1:
+            print "WARNING: More than one face detected in image."
+        if len(faces) > 1:
+            print "WARNING: No faces detected in image."
+        (x, y, w, h) = faces[0]
+
+        return image[y:y + h, x:x + w]
+
+def mask_img(img):
+	masked_img = img.copy()
+	y  = random.randint(0, 2* (img.shape[0]/3))
+	x  = random.randint(0, 2 * (img.shape[1]/3))
+	dy = random.randint(10, img.shape[0]/3)
+	dx = random.randint(10, img.shape[1]/3)
+	masked_img[y:y+dy,x:x+dx] = np.array([255,255,255])
+	return img, masked_img
+
+def test_mask_img():
+	for i in range(100):
+		img = crop_face(cv2.imread("data/celebA/000058.jpg"))
+		a,b = mask_img(img)
+		cv2.imwrite("img_testing/"+str(i)+".jpg",b)
 
 def save_images(images, size, image_path):
     return imsave(inverse_transform(images), size, image_path)
@@ -64,6 +86,9 @@ def merge(images, size):
 
 def imsave(images, size, path):
     return scipy.misc.imsave(path, merge(images, size))
+
+def resize(img, rows, columns, depth=3):
+    return scipy.misc.imresize(img,(rows,columns,depth))
 
 def center_crop(x, crop_h, crop_w=None, resize_w=64):
     if crop_w is None:
