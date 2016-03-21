@@ -1,10 +1,12 @@
 import os
 import time
 from glob import glob
-import tensorflow as tf
 
-from ops import *
+
+
 from utils import *
+from ops import *
+import tensorflow as tf
 
 class DCGAN(object):
     def __init__(self, sess, image_size=108, is_crop=True,
@@ -90,7 +92,7 @@ class DCGAN(object):
 
         self.d_loss_real_sum = tf.scalar_summary("d_loss_real", self.d_loss_real)
         self.d_loss_fake_sum = tf.scalar_summary("d_loss_fake", self.d_loss_fake)
-                                                    
+
         self.d_loss = self.d_loss_real + self.d_loss_fake
 
         self.g_loss_sum = tf.scalar_summary("g_loss", self.g_loss)
@@ -115,7 +117,7 @@ class DCGAN(object):
         tf.initialize_all_variables().run()
 
         self.saver = tf.train.Saver()
-        self.g_sum = tf.merge_summary([self.z_sum, self.d__sum, 
+        self.g_sum = tf.merge_summary([self.z_sum, self.d__sum,
             self.G_sum, self.d_loss_fake_sum, self.g_loss_sum])
         self.d_sum = tf.merge_summary([self.z_sum, self.d_sum, self.d_loss_real_sum, self.d_loss_sum])
         self.writer = tf.train.SummaryWriter("./logs", self.sess.graph_def)
@@ -217,7 +219,7 @@ class DCGAN(object):
             self.h0 = tf.reshape(self.z_, [-1, 4, 4, self.gf_dim * 8])
             h0 = tf.nn.relu(self.g_bn0(self.h0))
 
-            self.h1, self.h1_w, self.h1_b = deconv2d(h0, 
+            self.h1, self.h1_w, self.h1_b = deconv2d(h0,
                 [self.batch_size, 8, 8, self.gf_dim*4], name='g_h1', with_w=True)
             h1 = tf.nn.relu(self.g_bn1(self.h1))
 

@@ -1,5 +1,6 @@
 import os
 import numpy as np
+from utils import *
 import tensorflow as tf
 
 from model import DCGAN
