@@ -141,8 +141,10 @@ class DCGAN(object):
 
             for idx in xrange(0, batch_idxs):
                 batch_files = data[idx*config.batch_size:(idx+1)*config.batch_size]
-                batch = [get_image(batch_file, self.image_size, is_crop=self.is_crop) for batch_file in batch_files]
-                batch_images = np.array(batch).astype(np.float32)
+                #testing crop+mask
+		#batch = [get_image(batch_file, self.image_size, is_crop=self.is_crop) for batch_file in batch_files]
+                batch = [get_img_and_mask(batch_file)[0] for batch_file in batch_files]
+		batch_images = np.array(batch).astype(np.float32)
 
                 batch_z = np.random.uniform(-1, 1, [config.batch_size, self.z_dim]) \
                             .astype(np.float32)

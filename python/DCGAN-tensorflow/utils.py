@@ -26,7 +26,7 @@ def get_image(image_path, image_size, is_crop=False, is_crop_face=False, create_
 
 
 def get_img_and_mask(image_path):
-    return mask_img(crop_face(cv2.imread(image_path)))
+    return mask_img(cv2.imread(image_path))
 
 
 def crop_face(image):
