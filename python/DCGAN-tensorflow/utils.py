@@ -25,7 +25,8 @@ def get_image(image_path, image_size, is_crop=False,is_crop_face= False, create_
       return transform(crop_face(cv2.imread(image_path)), image_size, is_crop)
 
 def get_img_and_mask(image_path):
-	return mask_img(crop_face(cv2.imread(image_path)))
+	#return mask_img(resize(crop_face(cv2.imread(image_path)),64,64))
+	return mask_img(cv2.imread(image_path))
 
 def crop_face(image):
         curr_path = os.getcwd()
@@ -43,8 +44,9 @@ def crop_face(image):
         )
         if len(faces) > 1:
             print "WARNING: More than one face detected in image."
-        if len(faces) > 1:
+        if len(faces) < 1:
             print "WARNING: No faces detected in image."
+	    return image
         (x, y, w, h) = faces[0]
 
         return image[y:y + h, x:x + w]
@@ -56,7 +58,7 @@ def mask_img(img):
 	dy = random.randint(10, img.shape[0]/3)
 	dx = random.randint(10, img.shape[1]/3)
 	masked_img[y:y+dy,x:x+dx] = np.array([255,255,255])
-	return img, masked_img
+	return img.astype(np.float), masked_img.astype(np.float)
 
 def test_mask_img():
 	for i in range(100):
