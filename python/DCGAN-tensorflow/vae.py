@@ -6,7 +6,7 @@ import math
 import os
 
 import numpy as np
-import prettytensor as pt
+import prettytensor as pt # https://github.com/google/prettytensor
 import scipy.misc
 import tensorflow as tf
 from scipy.misc import imsave
@@ -112,7 +112,7 @@ if __name__ == "__main__":
 
     input_tensor = tf.placeholder(tf.float32, [FLAGS.batch_size, FLAGS.image_size * FLAGS.image_size])
 
-    with pt.defaults_scope(activation_fn=tf.nn.elu,
+    with pt.defaults_scope(activation_fn=tf.nn.elu,#elu explain http://www.picalike.com/blog/2015/11/28/relu-was-yesterday-tomorrow-comes-elu/
                            batch_normalize=True,
                            learned_moments_update_rate=0.0003,
                            variance_epsilon=0.001,
