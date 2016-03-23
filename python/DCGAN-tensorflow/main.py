@@ -36,10 +36,8 @@ def main(_):
             dcgan = DCGAN(sess, image_size=FLAGS.image_size, batch_size=FLAGS.batch_size,
                     dataset_name=FLAGS.dataset, is_crop=FLAGS.is_crop, checkpoint_dir=FLAGS.checkpoint_dir)
 
-        if FLAGS.is_train:
-            dcgan.train(FLAGS)
-        else:
-            dcgan.load(FLAGS.checkpoint_dir)
+        if FLAGS.is_train:dcgan.train(FLAGS)
+        else:dcgan.load(FLAGS.checkpoint_dir)
 
         to_json("./web/js/layers.js", [dcgan.h0_w, dcgan.h0_b, dcgan.g_bn0],
                                       [dcgan.h1_w, dcgan.h1_b, dcgan.g_bn1],
