@@ -13,7 +13,7 @@ Generative Convolutional Net for photo restoration
 3. Adjust size of Z as the input to the Generator
 4. worry about blending later
 5. Based on the concept of residual net, add encoded infomation of the problematic image into each layer (maybe face CNN) generator CNN to enforce the CNN to not to be too general/abstract about the input image.
-
+6. speedup the preprocess
 Prerequisites
 -------------
 - [Tensorflow](https://www.tensorflow.org/)
