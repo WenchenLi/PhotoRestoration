@@ -24,7 +24,8 @@ flags.DEFINE_integer("updates_per_epoch", 1000, "number of updates per epoch")
 flags.DEFINE_integer("max_epoch", 100, "max epoch")
 flags.DEFINE_float("learning_rate", 1e-2, "learning rate")
 flags.DEFINE_string("working_directory", "data/", "")
-flags.DEFINE_integer("hidden_size", 10, "size of the hidden VAE unit")
+# flags.DEFINE_integer("hidden_size", 10, "size of the hidden VAE unit")
+flags.DEFINE_integer("hidden_size", 1142, "size of the hidden VAE unit")
 
 FLAGS = flags.FLAGS
 
@@ -44,8 +45,8 @@ def encoder(input_tensor):
             conv2d(5, 64, stride=2).
             conv2d(5, 128, edges='VALID').
             dropout(0.9).
-            flatten().
-            fully_connected(FLAGS.hidden_size * 2, activation_fn=None)).tensor
+            flatten()).tensor
+            # fully_connected(FLAGS.hidden_size * 2, activation_fn=None)).tensor
 
 
 def decoder(input_tensor=None):
@@ -66,7 +67,8 @@ def decoder(input_tensor=None):
         input_sample = epsilon
     else:
         mean = input_tensor[:, :FLAGS.hidden_size]
-        stddev = tf.sqrt(tf.exp(input_tensor[:, FLAGS.hidden_size:]))
+        stddev = tf.sqrt(tf.exp(input_tensor[:, :FLAGS.hidden_size]))
+        print(mean.get_shape(),stddev.get_shape())
         input_sample = mean + epsilon * stddev
     return (pt.wrap(input_sample).
             reshape([FLAGS.batch_size, 1, 1, FLAGS.hidden_size]).
