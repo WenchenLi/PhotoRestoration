@@ -24,7 +24,7 @@ from prettytensor.pretty_tensor_class import PROVIDED
 # pylint: disable=redefined-outer-name,invalid-name
 @prettytensor.Register(
     assign_defaults=('activation_fn', 'l2loss', 'stddev', 'batch_normalize'))
-class deconv2d(prettytensor.VarStoreMethod):
+class deconv2d_hack(prettytensor.VarStoreMethod):
 
   def __call__(self,
                input_layer,

@@ -150,7 +150,7 @@ class DataSet(object):
   def next_batch(self, batch_size, fake_data=False):
     """Return the next `batch_size` examples from this data set."""
     if fake_data:
-      fake_image = [1] * 784
+      fake_image = [1] * 4096
       if self.one_hot:
         fake_label = [1] + [0] * 9
       else:
@@ -179,8 +179,7 @@ class DataSet(object):
       imgs[:,col] = img.flatten()
       masked_imgs[:,col] = masked.flatten()
       col += 1
-    return  numpy.multiply(masked_imgs,1.0/255.), numpy.multiply(imgs,1.0/255.)
-
+    return  numpy.transpose(numpy.multiply(masked_imgs,1.0/255.)),numpy.transpose(numpy.multiply(imgs,1.0/255.))
 
 def read_data_sets(train_dir, dtype=tf.float32):
   class DataSets(object):

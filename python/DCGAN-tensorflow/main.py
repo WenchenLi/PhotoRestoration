@@ -23,10 +23,8 @@ FLAGS = flags.FLAGS
 def main(_):
     pp.pprint(flags.FLAGS.__flags)
 
-    if not os.path.exists(FLAGS.checkpoint_dir):
-        os.makedirs(FLAGS.checkpoint_dir)
-    if not os.path.exists(FLAGS.sample_dir):
-        os.makedirs(FLAGS.sample_dir)
+    if not os.path.exists(FLAGS.checkpoint_dir):os.makedirs(FLAGS.checkpoint_dir)
+    if not os.path.exists(FLAGS.sample_dir):os.makedirs(FLAGS.sample_dir)
 
     with tf.Session(config=tf.ConfigProto(log_device_placement=True)) as sess:
         if FLAGS.dataset == 'mnist':
