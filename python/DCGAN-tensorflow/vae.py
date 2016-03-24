@@ -25,7 +25,7 @@ flags.DEFINE_integer("max_epoch", 100, "max epoch")
 flags.DEFINE_float("learning_rate", 1e-2, "learning rate")
 flags.DEFINE_string("working_directory", "data/", "")
 flags.DEFINE_string("checkpoint_dir", "checkpoint", "Directory name to save the checkpoints [checkpoint]")
-flags.DEFINE_integer("hidden_size", 2048, "size of the hidden VAE unit")  # prev 10,1142
+flags.DEFINE_integer("hidden_size",8192, "size of the hidden VAE unit")  # prev 10,1142
 FLAGS = flags.FLAGS
 
 def encoder(input_tensor):
@@ -112,8 +112,8 @@ def get_reconstruction_cost(output_tensor, target_tensor, epsilon=1e-8):
         target_tensor: the target tensor that we want to reconstruct
         epsilon:
     '''
-    print (output_tensor.get_shape(),target_tensor.get_shape())
-    print (tf.shape(output_tensor),tf.shape(target_tensor))
+    # print (output_tensor.get_shape(),target_tensor.get_shape())
+    # print (tf.shape(output_tensor),tf.shape(target_tensor))
     return tf.reduce_sum(-target_tensor * tf.log(output_tensor + epsilon) -
                          (1.0 - target_tensor) * tf.log(1.0 - output_tensor + epsilon))
 
@@ -138,8 +138,8 @@ if __name__ == "__main__":
                 output_tensor, mean, stddev = decoder(encoder(input_tensor))
         with pt.defaults_scope(phase=pt.Phase.test):
             with tf.variable_scope("model", reuse=True) as scope:
-                sampled_tensor, _, _ = decoder()
-                # sampled_tensor, _, _ = decoder(encoder(input_tensor))
+                # sampled_tensor, _, _ = decoder()
+                sampled_tensor, _, _ = decoder(encoder(input_tensor))
 
     vae_loss = get_vae_cost(mean, stddev)
     rec_loss = get_reconstruction_cost(output_tensor, ground_truth_tensor)
@@ -160,7 +160,6 @@ if __name__ == "__main__":
             for i in range(FLAGS.updates_per_epoch):
                 pbar.update(i)
                 x_masked, x_ground_truth = celebACropped.train.next_batch(FLAGS.batch_size)
-                # x_masked, x_ground_truth = tf.to_float(x_masked), tf.to_float(x_ground_truth)
                 _, loss_value = sess.run([train, loss],
                                          feed_dict={input_tensor: x_masked,ground_truth_tensor:x_ground_truth})
                 training_loss += loss_value
@@ -170,13 +169,18 @@ if __name__ == "__main__":
             print("Loss %f" % training_loss)
 
             if epoch%5 ==0:
-                print("reached %5, save and evaluate results")
+                print("reached %5==0, save and evaluate results")
                 saver.save(sess,save_path=os.path.join(FLAGS.checkpoint_dir, 'vae'),global_step=epoch)
                 print(sampled_tensor.get_shape())
-                imgs = sess.run(sampled_tensor)
-                # imgs = sess.run(feed_dict={input_tensor: x_masked,ground_truth_tensor:x_ground_truth})
+                # imgs = sess.run(sampled_tensor)
+                x_masked, x_ground_truth = celebACropped.train.next_batch(FLAGS.batch_size)
+                imgs = sess.run(fetches=sampled_tensor,feed_dict={input_tensor: x_masked})
                 for k in range(FLAGS.batch_size):
                     imgs_folder = os.path.join(FLAGS.working_directory, 'imgs'+str(epoch))
                     if not os.path.exists(imgs_folder): os.makedirs(imgs_folder)
-                    imsave(os.path.join(imgs_folder, '%d.png') % k,
+                    imsave(os.path.join(imgs_folder, '%d'+'_restored.png') % k,
                            imgs[k].reshape(FLAGS.image_size, FLAGS.image_size))
+                    imsave(os.path.join(imgs_folder, '%d'+'_masked.png') % k,
+                           x_masked[k].reshape(FLAGS.image_size, FLAGS.image_size))
+                    imsave(os.path.join(imgs_folder, '%d.'+'_ground_truth.png') % k,
+                           x_ground_truth[k].reshape(FLAGS.image_size, FLAGS.image_size))
