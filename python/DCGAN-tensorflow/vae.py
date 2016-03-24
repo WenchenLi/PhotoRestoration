@@ -23,9 +23,10 @@ flags.DEFINE_integer("batch_size", 1024, "batch size")
 flags.DEFINE_integer("updates_per_epoch", 1000, "number of updates per epoch")
 flags.DEFINE_integer("max_epoch", 100, "max epoch")
 flags.DEFINE_float("learning_rate", 1e-2, "learning rate")
-flags.DEFINE_string("working_directory", "data/", "")
+flags.DEFINE_string("working_directory", "data/", "directory where your data is")
+flags.DEFINE_string("results_directory", "results/", "directory where to save your evaluation results")
 flags.DEFINE_string("checkpoint_dir", "checkpoint", "Directory name to save the checkpoints [checkpoint]")
-flags.DEFINE_integer("hidden_size",8192, "size of the hidden VAE unit")  # prev 10,1142
+flags.DEFINE_integer("hidden_size",8192, "size of the hidden VAE unit")
 FLAGS = flags.FLAGS
 
 def encoder(input_tensor):
@@ -176,7 +177,7 @@ if __name__ == "__main__":
                 x_masked, x_ground_truth = celebACropped.train.next_batch(FLAGS.batch_size)
                 imgs = sess.run(fetches=sampled_tensor,feed_dict={input_tensor: x_masked})
                 for k in range(FLAGS.batch_size):
-                    imgs_folder = os.path.join(FLAGS.working_directory, 'imgs'+str(epoch))
+                    imgs_folder = os.path.join(FLAGS.results_directory, 'imgs'+str(epoch))
                     if not os.path.exists(imgs_folder): os.makedirs(imgs_folder)
                     imsave(os.path.join(imgs_folder, '%d'+'_restored.png') % k,
                            imgs[k].reshape(FLAGS.image_size, FLAGS.image_size))
