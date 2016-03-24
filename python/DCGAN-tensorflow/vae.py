@@ -170,8 +170,11 @@ if __name__ == "__main__":
             print("Loss %f" % training_loss)
 
             if epoch%5 ==0:
+                print("reached %5, save and evaluate results")
                 saver.save(sess,save_path=os.path.join(FLAGS.checkpoint_dir, 'vae'),global_step=epoch)
+                print(sampled_tensor.get_shape())
                 imgs = sess.run(sampled_tensor)
+                # imgs = sess.run(feed_dict={input_tensor: x_masked,ground_truth_tensor:x_ground_truth})
                 for k in range(FLAGS.batch_size):
                     imgs_folder = os.path.join(FLAGS.working_directory, 'imgs'+str(epoch))
                     if not os.path.exists(imgs_folder): os.makedirs(imgs_folder)

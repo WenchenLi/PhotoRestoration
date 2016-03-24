@@ -1,0 +1,10 @@
+have 10 epoch, random init in decoder results
+
+flags.DEFINE_integer("image_size", 64, "The size of image to use [64]")
+flags.DEFINE_integer("batch_size", 1024, "batch size")
+flags.DEFINE_integer("updates_per_epoch", 1000, "number of updates per epoch")
+flags.DEFINE_integer("max_epoch", 100, "max epoch")
+flags.DEFINE_float("learning_rate", 1e-2, "learning rate")
+flags.DEFINE_string("working_directory", "data/", "")
+flags.DEFINE_string("checkpoint_dir", "checkpoint", "Directory name to save the checkpoints [checkpoint]")
+flags.DEFINE_integer("hidden_size", 2048, "size of the hidden VAE unit") 
