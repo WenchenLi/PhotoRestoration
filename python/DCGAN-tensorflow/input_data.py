@@ -179,7 +179,12 @@ class DataSet(object):
       imgs[:,col] = img.flatten()
       masked_imgs[:,col] = masked.flatten()
       col += 1
-    return  numpy.transpose(numpy.multiply(masked_imgs,1.0/255.)),numpy.transpose(numpy.multiply(imgs,1.0/255.))
+
+    masked_imgs = masked_imgs.astype(numpy.float32)
+    imgs = imgs.astype(numpy.float32)
+    # print numpy.transpose(numpy.multiply(masked_imgs,1.0/255.0)).dtype
+    return  numpy.transpose(numpy.multiply(masked_imgs,1.0/255.0)),\
+            numpy.transpose(numpy.multiply(imgs,1.0/255.0))
 
 def read_data_sets(train_dir, dtype=tf.float32):
   class DataSets(object):

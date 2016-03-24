@@ -19,7 +19,7 @@ from progressbar import ETA, Bar, Percentage, ProgressBar
 flags = tf.flags
 logging = tf.logging
 flags.DEFINE_integer("image_size", 64, "The size of image to use [64]")
-flags.DEFINE_integer("batch_size", 2048, "batch size")
+flags.DEFINE_integer("batch_size", 1024, "batch size")
 flags.DEFINE_integer("updates_per_epoch", 1000, "number of updates per epoch")
 flags.DEFINE_integer("max_epoch", 100, "max epoch")
 flags.DEFINE_float("learning_rate", 1e-2, "learning rate")
@@ -139,6 +139,7 @@ if __name__ == "__main__":
         with pt.defaults_scope(phase=pt.Phase.test):
             with tf.variable_scope("model", reuse=True) as scope:
                 sampled_tensor, _, _ = decoder()
+                # sampled_tensor, _, _ = decoder(encoder(input_tensor))
 
     vae_loss = get_vae_cost(mean, stddev)
     rec_loss = get_reconstruction_cost(output_tensor, ground_truth_tensor)
@@ -159,14 +160,16 @@ if __name__ == "__main__":
             for i in range(FLAGS.updates_per_epoch):
                 pbar.update(i)
                 x_masked, x_ground_truth = celebACropped.train.next_batch(FLAGS.batch_size)
-                _, loss_value = sess.run([train, loss],{input_tensor: x_masked,ground_truth_tensor:x_ground_truth})
+                # x_masked, x_ground_truth = tf.to_float(x_masked), tf.to_float(x_ground_truth)
+                _, loss_value = sess.run([train, loss],
+                                         feed_dict={input_tensor: x_masked,ground_truth_tensor:x_ground_truth})
                 training_loss += loss_value
 
             training_loss = training_loss / \
                             (FLAGS.updates_per_epoch * FLAGS.image_size * FLAGS.image_size * FLAGS.batch_size)
             print("Loss %f" % training_loss)
 
-            if epoch%20 ==0:
+            if epoch%5 ==0:
                 saver.save(sess,save_path=os.path.join(FLAGS.checkpoint_dir, 'vae'),global_step=epoch)
                 imgs = sess.run(sampled_tensor)
                 for k in range(FLAGS.batch_size):
