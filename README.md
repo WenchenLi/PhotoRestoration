@@ -2,6 +2,18 @@
 ![alt text](http://www.crosswaysimages.ca/wp-content/uploads/2015/04/photo-restoration.jpg?quality=100.3015041915160)
 
 [proposal slides](https://docs.google.com/presentation/d/14VL0wPYdZIuOWYzobaYvf3Y_LnnijEuD2tCy4h8utjw/edit?usp=sharing)
+## Progress
+
+our current focus: 
+
+* data: taking existing face dataset like celebA with cropped face as ground truth training data,
+and randomly assign a rectangular mask on the face as the training data, so that is a tuple (masked_image, ground_truth_image)
+as training data.
+
+* [model](https://github.com/WenchenLi/PhotoRestoration/blob/master/python/DCGAN-tensorflow/vae.py): convolutional autoencoder/decoder followed by a discriminator taking masked image and groundtruth image to discriminate
+the restoration.
+
+
 ##current possible solution still requires "photoshop"
 1. [facetune](http://www.facetuneapp.com/)
 2. [retouch](http://www.colorpilot.com/retouch.html)
