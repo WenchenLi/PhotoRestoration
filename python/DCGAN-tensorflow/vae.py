@@ -25,7 +25,7 @@ flags.DEFINE_integer("image_size", 64, "The size of image to use [64]")
 flags.DEFINE_integer("batch_size", 128, "batch size")
 flags.DEFINE_integer("updates_per_epoch", 1000, "number of updates per epoch")
 flags.DEFINE_integer("max_epoch", 100, "max epoch")
-flags.DEFINE_float("learning_rate", 1e-2, "learning rate")
+flags.DEFINE_float("r_learning_rate", 0.0002, "learning rate")
 flags.DEFINE_string("working_directory", "data/", "directory where your data is")
 flags.DEFINE_string("results_directory", "results/", "directory where to save your evaluation results")
 flags.DEFINE_string("checkpoint_dir", "checkpoint", "Directory name to save the checkpoints [checkpoint]")
@@ -163,7 +163,7 @@ if __name__ == "__main__":
     # loss = vae_loss + rec_loss
     g_loss = ops.binary_cross_entropy_with_logits(tf.ones_like(D_), D_)
     r_loss = rec_loss +g_loss
-    r_optim = tf.train.AdamOptimizer(FLAGS.learning_rate, epsilon=1.0)
+    r_optim = tf.train.AdamOptimizer(FLAGS.r_learning_rate, epsilon=1.0)
     r_train = pt.apply_optimizer(r_optim, losses=[r_loss])
 
     # Discriminator
@@ -204,6 +204,10 @@ if __name__ == "__main__":
                                           #as long as specified input, even if it's chained , tf graph can figure
                                           #it out, so no need to work on the intermediate result(output tensor at
                                           #this case )
+
+                # update restorer again incase discriminator learns too fast that they can't reach equilibrium state
+                _, loss_value = sess.run(fetches=[r_train, r_loss],
+                                         feed_dict={input_tensor: x_masked, ground_truth_tensor: x_ground_truth})
 
                 errD_fake = d_loss_fake.eval({input_tensor: x_masked})
                 errD_real = d_loss_real.eval({ground_truth_tensor: x_ground_truth})
