@@ -160,7 +160,8 @@ if __name__ == "__main__":
     # vae_loss = get_vae_cost(mean, stddev)
     rec_loss = get_reconstruction_cost(output_tensor, ground_truth_tensor)
     # loss = vae_loss + rec_loss
-    r_loss = rec_loss
+    g_loss = ops.binary_cross_entropy_with_logits(tf.ones_like(D_), D_)
+    r_loss = rec_loss +g_loss
     r_optim = tf.train.AdamOptimizer(FLAGS.learning_rate, epsilon=1.0)
     r_train = pt.apply_optimizer(r_optim, losses=[r_loss])
 
@@ -177,7 +178,6 @@ if __name__ == "__main__":
     d_vars = [var for var in t_vars if 'd_' in var.name]
     d_optim = tf.train.AdamOptimizer(FLAGS.d_learning_rate, beta1=FLAGS.beta1) \
         .minimize(d_loss, var_list=d_vars)
-    g_loss = ops.binary_cross_entropy_with_logits(tf.ones_like(D_), D_)
 
     # General stuff
     init = tf.initialize_all_variables()

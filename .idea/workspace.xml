@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="92b2fbc4-1671-429c-9671-c72c09e3db21" name="Default" comment="update readme on main page">
+    <list default="true" id="92b2fbc4-1671-429c-9671-c72c09e3db21" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python/DCGAN-tensorflow/vae.py" afterPath="$PROJECT_DIR$/python/DCGAN-tensorflow/vae.py" />
     </list>
@@ -38,8 +38,8 @@
       <file leaf-file-name="vae.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/vae.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33560476">
-              <caret line="223" column="66" selection-start-line="223" selection-start-column="66" selection-end-line="223" selection-end-column="66" />
+            <state vertical-scroll-proportion="0.3321976">
+              <caret line="180" column="0" selection-start-line="180" selection-start-column="0" selection-end-line="180" selection-end-column="0" />
               <folding>
                 <element signature="e#102#166#0" expanded="true" />
               </folding>
@@ -88,8 +88,8 @@
       <file leaf-file-name="model.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.387096">
-              <caret line="131" column="42" selection-start-line="131" selection-start-column="42" selection-end-line="131" selection-end-column="42" />
+            <state vertical-scroll-proportion="-17.193548">
+              <caret line="122" column="0" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -752,7 +752,13 @@
       <option name="project" value="LOCAL" />
       <updated>1458932214636</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="update vae">
+      <created>1459019529704</created>
+      <option name="number" value="00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1459019529704</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TodoView">
@@ -801,7 +807,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="save cropped face to /dataimages/face_cropped after loading image" />
     <MESSAGE value="remove green rectangle on cropped face" />
     <MESSAGE value="integrate toolbar together with canvas for easy handling instance values. finish brush mask directly on image, need to make scroller work for large image." />
     <MESSAGE value="add scroller on canvas_pic, need to move mouse to the scoller to move canvas_pic now" />
@@ -826,7 +831,8 @@
     <MESSAGE value="results after training 20 epochs" />
     <MESSAGE value="add discriminator after Conv autoencoder-decoder to do adversarial training." />
     <MESSAGE value="update readme on main page" />
-    <option name="LAST_COMMIT_MESSAGE" value="update readme on main page" />
+    <MESSAGE value="update vae" />
+    <option name="LAST_COMMIT_MESSAGE" value="update vae" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -979,8 +985,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.387096">
-          <caret line="131" column="42" selection-start-line="131" selection-start-column="42" selection-end-line="131" selection-end-column="42" />
+        <state vertical-scroll-proportion="-17.193548">
+          <caret line="122" column="0" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
@@ -989,8 +995,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/vae.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33560476">
-          <caret line="223" column="66" selection-start-line="223" selection-start-column="66" selection-end-line="223" selection-end-column="66" />
+        <state vertical-scroll-proportion="0.3321976">
+          <caret line="180" column="0" selection-start-line="180" selection-start-column="0" selection-end-line="180" selection-end-column="0" />
           <folding>
             <element signature="e#102#166#0" expanded="true" />
           </folding>
