@@ -1,5 +1,5 @@
-"""TensorFlow implementation of http://arxiv.org/pdf/1312.6114v10.pdf
-for photo restoration with only conv and deconv first"""
+"""TensorFlow implementation for photo restoration with conv and deconv
+followed by discriminator"""
 
 from __future__ import absolute_import, division, print_function
 
