@@ -5,6 +5,7 @@ from __future__ import absolute_import, division, print_function
 
 import math
 import os
+import pickle
 
 import numpy as np
 import prettytensor as pt  # https://github.com/google/prettytensor
@@ -21,7 +22,7 @@ import ops
 flags = tf.flags
 logging = tf.logging
 flags.DEFINE_integer("image_size", 64, "The size of image to use [64]")
-flags.DEFINE_integer("batch_size", 1024, "batch size")
+flags.DEFINE_integer("batch_size", 128, "batch size")
 flags.DEFINE_integer("updates_per_epoch", 1000, "number of updates per epoch")
 flags.DEFINE_integer("max_epoch", 100, "max epoch")
 flags.DEFINE_float("learning_rate", 1e-2, "learning rate")
@@ -132,7 +133,7 @@ if __name__ == "__main__":
     if not os.path.exists(FLAGS.checkpoint_dir): os.makedirs(FLAGS.checkpoint_dir)
     if not os.path.exists(data_directory): os.makedirs(data_directory)
     celebACropped = input_data.read_data_sets(data_directory)
-
+    loss_book_keeper=[]
     # build model
     input_tensor = tf.placeholder(tf.float32, [FLAGS.batch_size, FLAGS.image_size * FLAGS.image_size],name="input_tensor")
     ground_truth_tensor = tf.placeholder(tf.float32, [FLAGS.batch_size, FLAGS.image_size * FLAGS.image_size],name="gt_tensor")
@@ -206,18 +207,21 @@ if __name__ == "__main__":
 
                 errD_fake = d_loss_fake.eval({input_tensor: x_masked})
                 errD_real = d_loss_real.eval({ground_truth_tensor: x_ground_truth})
-                errG = loss_value
+                errG = loss_value/float(FLAGS.batch_size*(FLAGS.image_size**2))
                 print("Epoch: [%2d] update batch: [%4d] , d_loss: %.8f, g_loss: %.8f" \
                       % (epoch, i, errD_fake + errD_real, errG))
-
-            #r_train loss
-            training_loss = training_loss / \
-                            (FLAGS.updates_per_epoch * FLAGS.image_size * FLAGS.image_size * FLAGS.batch_size)
-            print("restore Loss %f" % training_loss)
+                loss_book_keeper.append((epoch, i, errD_fake + errD_real, errG))
+            # #r_train loss
+            # training_loss = training_loss / \
+            #                 (FLAGS.updates_per_epoch * FLAGS.image_size * FLAGS.image_size * FLAGS.batch_size)
+            # print("restore Loss %f" % training_loss)
 
             if epoch % 5 == 0:
                 print("reached %5==0, save and evaluate results")
                 saver.save(sess, save_path=os.path.join(FLAGS.checkpoint_dir, 'vae'), global_step=epoch)
+                output_loss_keeper = open('loss.pkl', 'wb')
+                pickle.dump(loss_book_keeper, output_loss_keeper)
+                output_loss_keeper.close()
                 # print(sampled_tensor.get_shape())
                 # imgs = sess.run(sampled_tensor)
                 x_masked, x_ground_truth = celebACropped.train.next_batch(FLAGS.batch_size)
