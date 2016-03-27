@@ -6,33 +6,33 @@ from __future__ import absolute_import, division, print_function
 import math
 import os
 import pickle
-
 import numpy as np
-import prettytensor as pt  # https://github.com/google/prettytensor
 import scipy.misc
-import tensorflow as tf
 from scipy.misc import imsave
+from progressbar import ETA, Bar, Percentage, ProgressBar
+
+import tensorflow as tf
+import prettytensor as pt  # https://github.com/google/prettytensor
+
 import input_data
 from deconv import deconv2d_hack
 from ops import deconv2d
-from progressbar import ETA, Bar, Percentage, ProgressBar
-
 import ops
 
 flags = tf.flags
-logging = tf.logging
+# logging = tf.logging
 flags.DEFINE_integer("image_size", 64, "The size of image to use [64]")
-flags.DEFINE_integer("batch_size", 128, "batch size")
-flags.DEFINE_integer("updates_per_epoch", 1000, "number of updates per epoch")
+flags.DEFINE_integer("batch_size", 1024, "batch size")
+flags.DEFINE_integer("updates_per_epoch", 100, "number of updates per epoch")
 flags.DEFINE_integer("max_epoch", 100, "max epoch")
-flags.DEFINE_float("r_learning_rate", 0.0002, "learning rate")
+flags.DEFINE_float("r_learning_rate", 0.02, "learning rate")
 flags.DEFINE_string("working_directory", "data/", "directory where your data is")
 flags.DEFINE_string("results_directory", "results/", "directory where to save your evaluation results")
 flags.DEFINE_string("checkpoint_dir", "checkpoint", "Directory name to save the checkpoints [checkpoint]")
 flags.DEFINE_integer("hidden_size", 8192, "size of the hidden VAE unit")
 # D
-flags.DEFINE_float("beta1", 0.5, "Momentum term of adam [0.5]")
-flags.DEFINE_float("d_learning_rate", 0.0002, "Learning rate of for adam [0.0002]")
+flags.DEFINE_float("beta1", 0.5, "Momentum term of adam [0.8]")
+flags.DEFINE_float("d_learning_rate", 0.0001, "Learning rate of for adam [0.0002]")
 flags.DEFINE_integer("df_dim",64,"Dimension of discriminator filters in first conv layer. [64]")
 
 FLAGS = flags.FLAGS
@@ -123,9 +123,9 @@ def get_reconstruction_cost(output_tensor, target_tensor, epsilon=1e-8):
         target_tensor: the target tensor that we want to reconstruct
         epsilon:
     '''
-    return tf.reduce_sum(-target_tensor * tf.log(output_tensor + epsilon) -
-                         (1.0 - target_tensor) * tf.log(1.0 - output_tensor + epsilon))
-
+    # return tf.reduce_sum(-target_tensor * tf.log(output_tensor + epsilon) -
+    #                      (1.0 - target_tensor) * tf.log(1.0 - output_tensor + epsilon))
+    return tf.nn.l2_loss(target_tensor-output_tensor)*2
 
 if __name__ == "__main__":
     # prep
@@ -139,7 +139,6 @@ if __name__ == "__main__":
     ground_truth_tensor = tf.placeholder(tf.float32, [FLAGS.batch_size, FLAGS.image_size * FLAGS.image_size],name="gt_tensor")
     sampled_tensor = tf.placeholder(tf.float32, [FLAGS.batch_size, FLAGS.image_size * FLAGS.image_size],name='sampled_tensor')
     output_tensor = tf.placeholder(tf.float32, [FLAGS.batch_size, FLAGS.image_size * FLAGS.image_size],name='output_tensor')
-
 
     with pt.defaults_scope(activation_fn=tf.nn.elu,
                            batch_normalize=True,
@@ -195,7 +194,7 @@ if __name__ == "__main__":
             for i in range(FLAGS.updates_per_epoch):
                 pbar.update(i)
                 x_masked, x_ground_truth = celebACropped.train.next_batch(FLAGS.batch_size)
-                # auto-encoder
+                # Restorer
                 _, loss_value = sess.run(fetches=[r_train, r_loss],
                                          feed_dict={input_tensor: x_masked, ground_truth_tensor: x_ground_truth})
                 # discriminator
@@ -205,9 +204,9 @@ if __name__ == "__main__":
                                           #it out, so no need to work on the intermediate result(output tensor at
                                           #this case )
 
-                # update restorer again incase discriminator learns too fast that they can't reach equilibrium state
-                _, loss_value = sess.run(fetches=[r_train, r_loss],
-                                         feed_dict={input_tensor: x_masked, ground_truth_tensor: x_ground_truth})
+                # update restorer again in case discriminator learns too fast that they can't reach equilibrium state
+                # _, loss_value = sess.run(fetches=[r_train, r_loss],
+                #                          feed_dict={input_tensor: x_masked, ground_truth_tensor: x_ground_truth})
 
                 errD_fake = d_loss_fake.eval({input_tensor: x_masked})
                 errD_real = d_loss_real.eval({ground_truth_tensor: x_ground_truth})
@@ -215,10 +214,7 @@ if __name__ == "__main__":
                 print("Epoch: [%2d] update batch: [%4d] , d_loss: %.8f, g_loss: %.8f" \
                       % (epoch, i, errD_fake + errD_real, errG))
                 loss_book_keeper.append((epoch, i, errD_fake + errD_real, errG))
-            # #r_train loss
-            # training_loss = training_loss / \
-            #                 (FLAGS.updates_per_epoch * FLAGS.image_size * FLAGS.image_size * FLAGS.batch_size)
-            # print("restore Loss %f" % training_loss)
+
 
             if epoch % 5 == 0:
                 print("reached %5==0, save and evaluate results")
@@ -226,8 +222,7 @@ if __name__ == "__main__":
                 output_loss_keeper = open('loss.pkl', 'wb')
                 pickle.dump(loss_book_keeper, output_loss_keeper)
                 output_loss_keeper.close()
-                # print(sampled_tensor.get_shape())
-                # imgs = sess.run(sampled_tensor)
+
                 x_masked, x_ground_truth = celebACropped.train.next_batch(FLAGS.batch_size)
                 imgs = sess.run(fetches=sampled_tensor, feed_dict={input_tensor: x_masked})
                 for k in range(FLAGS.batch_size):
