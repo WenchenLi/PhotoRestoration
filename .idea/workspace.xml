@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="92b2fbc4-1671-429c-9671-c72c09e3db21" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python/DCGAN-tensorflow/README.md" afterPath="$PROJECT_DIR$/python/DCGAN-tensorflow/README.md" />
     </list>
     <list id="0162c5f5-f2f6-4c78-abd7-35cbb4b65ea5" name="New changelist" comment="" />
     <ignored path="PhotoRestoration.iws" />
@@ -50,8 +49,8 @@
       <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3482143">
-              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.61904764">
+              <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -779,7 +778,13 @@
       <option name="project" value="LOCAL" />
       <updated>1459111892424</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="update readme">
+      <created>1459115214002</created>
+      <option name="number" value="00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1459115214002</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TodoView">
@@ -836,7 +841,6 @@
     <MESSAGE value="add reference from DC GAN" />
     <MESSAGE value="before change FC, add some comments on code" />
     <MESSAGE value="drop FC" />
-    <MESSAGE value="update readme" />
     <MESSAGE value="switch the order of output of next_batch" />
     <MESSAGE value="reformat file, no code change" />
     <MESSAGE value="need to speedup the crop face preprocessing when have time" />
@@ -853,7 +857,8 @@
     <MESSAGE value="add loss_book_keeper and save for every 5 epochs" />
     <MESSAGE value="change some param name, update restorer twice during training(incase discriminator learns too fast)" />
     <MESSAGE value="update readme and try different loss function for restorer" />
-    <option name="LAST_COMMIT_MESSAGE" value="update readme and try different loss function for restorer" />
+    <MESSAGE value="update readme" />
+    <option name="LAST_COMMIT_MESSAGE" value="update readme" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1015,8 +1020,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3482143">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.61904764">
+          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
           <folding />
         </state>
       </provider>

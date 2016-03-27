@@ -4,6 +4,7 @@ Generative Convolutional Net for photo restoration
 * Convolution autoencoder/decoder with the help of discriminator
 
 ## TODO
+* add test sets
 * try residual net for generator ( probably not a good idea here, since we prefer remain the original image representation instead of an encoded general or abstract concept).-->
 * add batch norm in the restorer
 * Check the detail of the implementation 
