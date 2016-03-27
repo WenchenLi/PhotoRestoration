@@ -6,6 +6,8 @@ Generative Convolutional Net for photo restoration
 ## TODO
 * try residual net for generator ( probably not a good idea here, since we prefer remain the original image representation instead of an encoded general or abstract concept).-->
 * add batch norm in the restorer
+* Check the detail of the implementation 
+
 5. Based on the concept of residual net, add encoded infomation of the problematic image into each layer (maybe face CNN) generator CNN to enforce the CNN to not to be too general/abstract about the input image.
 Prerequisites
 -------------
