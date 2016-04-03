@@ -29,7 +29,7 @@ flags.DEFINE_float("r_learning_rate", 0.02, "learning rate")
 flags.DEFINE_string("working_directory", "data/", "directory where your data is")
 flags.DEFINE_string("results_directory", "results/", "directory where to save your evaluation results")
 flags.DEFINE_string("checkpoint_dir", "checkpoint", "Directory name to save the checkpoints [checkpoint]")
-flags.DEFINE_integer("hidden_size", 8192, "size of the hidden VAE unit")
+flags.DEFINE_integer("hidden_size", 18432, "size of the hidden VAE unit")
 # D
 flags.DEFINE_float("beta1", 0.5, "Momentum term of adam [0.8]")
 flags.DEFINE_float("d_learning_rate", 0.0001, "Learning rate of for adam [0.0002]")
@@ -103,6 +103,7 @@ def discriminator(image, reuse=False):
     h4 = ops.linear(tf.reshape(h3, [FLAGS.batch_size, -1]), 1, 'd_h3_lin')
     return tf.nn.sigmoid(h4)
 
+
 def get_vae_cost(mean, stddev, epsilon=1e-8):
     '''VAE loss
         See the paper
@@ -123,9 +124,9 @@ def get_reconstruction_cost(output_tensor, target_tensor, epsilon=1e-8):
         target_tensor: the target tensor that we want to reconstruct
         epsilon:
     '''
-    # return tf.reduce_sum(-target_tensor * tf.log(output_tensor + epsilon) -
-    #                      (1.0 - target_tensor) * tf.log(1.0 - output_tensor + epsilon))
-    return tf.nn.l2_loss(target_tensor-output_tensor)*2
+    return tf.reduce_sum(-target_tensor * tf.log(output_tensor + epsilon) -
+                         (1.0 - target_tensor) * tf.log(1.0 - output_tensor + epsilon))
+    # return tf.nn.l2_loss(target_tensor-output_tensor)*2
 
 if __name__ == "__main__":
     # prep
@@ -156,12 +157,11 @@ if __name__ == "__main__":
                 # sampled_tensor, _, _ = decoder()
                 sampled_tensor, _, _ = decoder(encoder(input_tensor))
 
-    # Restorer
+    # Restorer reconstruct
     # vae_loss = get_vae_cost(mean, stddev)
-    rec_loss = get_reconstruction_cost(output_tensor, ground_truth_tensor)
+    rec_loss = get_reconstruction_cost(output_tensor, ground_truth_tensor,epsilon = 1e-12)
     # loss = vae_loss + rec_loss
-    g_loss = ops.binary_cross_entropy_with_logits(tf.ones_like(D_), D_)
-    r_loss = rec_loss +g_loss
+    r_loss = rec_loss #+g_loss
     r_optim = tf.train.AdamOptimizer(FLAGS.r_learning_rate, epsilon=1.0)
     r_train = pt.apply_optimizer(r_optim, losses=[r_loss])
 
@@ -179,6 +179,11 @@ if __name__ == "__main__":
     d_optim = tf.train.AdamOptimizer(FLAGS.d_learning_rate, beta1=FLAGS.beta1) \
         .minimize(d_loss, var_list=d_vars)
 
+    # Restorer adverse Discriminator
+    g_loss = ops.binary_cross_entropy_with_logits(tf.ones_like(D_), D_)
+    g_optim = tf.train.AdamOptimizer(FLAGS.r_learning_rate, epsilon=1.0)
+    g_train = pt.apply_optimizer(g_optim, losses=[g_loss])
+
     # General stuff
     init = tf.initialize_all_variables()
     saver = tf.train.Saver()
@@ -194,7 +199,7 @@ if __name__ == "__main__":
             for i in range(FLAGS.updates_per_epoch):
                 pbar.update(i)
                 x_masked, x_ground_truth = celebACropped.train.next_batch(FLAGS.batch_size)
-                # Restorer
+                # Restorer reconstruct
                 _, loss_value = sess.run(fetches=[r_train, r_loss],
                                          feed_dict={input_tensor: x_masked, ground_truth_tensor: x_ground_truth})
                 # discriminator
@@ -203,6 +208,9 @@ if __name__ == "__main__":
                                           #as long as specified input, even if it's chained , tf graph can figure
                                           #it out, so no need to work on the intermediate result(output tensor at
                                           #this case )
+                 # Restorer adverse discriminator
+                _, g_loss_value = sess.run(fetches=[g_train, g_loss],
+                                         feed_dict={input_tensor: x_masked})
 
                 # update restorer again in case discriminator learns too fast that they can't reach equilibrium state
                 # _, loss_value = sess.run(fetches=[r_train, r_loss],
@@ -210,7 +218,7 @@ if __name__ == "__main__":
 
                 errD_fake = d_loss_fake.eval({input_tensor: x_masked})
                 errD_real = d_loss_real.eval({ground_truth_tensor: x_ground_truth})
-                errG = loss_value/float(FLAGS.batch_size*(FLAGS.image_size**2))
+                errG = g_loss_value/float(FLAGS.batch_size*(FLAGS.image_size**2))
                 print("Epoch: [%2d] update batch: [%4d] , d_loss: %.8f, g_loss: %.8f" \
                       % (epoch, i, errD_fake + errD_real, errG))
                 loss_book_keeper.append((epoch, i, errD_fake + errD_real, errG))
