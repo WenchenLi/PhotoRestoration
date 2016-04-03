@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="92b2fbc4-1671-429c-9671-c72c09e3db21" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/python/DCGAN-tensorflow/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/python/DCGAN-tensorflow/dcgan/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/python/__init__.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python/DCGAN-tensorflow/README.md" afterPath="$PROJECT_DIR$/python/DCGAN-tensorflow/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
     </list>
     <list id="0162c5f5-f2f6-4c78-abd7-35cbb4b65ea5" name="New changelist" comment="" />
     <ignored path="PhotoRestoration.iws" />
@@ -38,11 +35,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.354839">
-              <caret line="73" column="15" selection-start-line="73" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.3227207">
+              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -105,11 +102,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.92474675">
-              <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+            <state vertical-scroll-proportion="-12.225806">
+              <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -180,12 +177,12 @@
         <option value="$PROJECT_DIR$/python/DCGAN-tensorflow/deconv.py" />
         <option value="$PROJECT_DIR$/python/DCGAN-tensorflow/ops.py" />
         <option value="$PROJECT_DIR$/python/DCGAN-tensorflow/crop_data.py" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/python/DCGAN-tensorflow/vae.py" />
         <option value="$PROJECT_DIR$/python/DCGAN-tensorflow/input_data.py" />
         <option value="$PROJECT_DIR$/python/DCGAN-tensorflow/dAE_adversarial.py" />
         <option value="$PROJECT_DIR$/python/DCGAN-tensorflow/.gitignore" />
         <option value="$PROJECT_DIR$/python/DCGAN-tensorflow/README.md" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -857,7 +854,13 @@
       <option name="project" value="LOCAL" />
       <updated>1459716366187</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="update readme">
+      <created>1459716633749</created>
+      <option name="number" value="00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1459716633749</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TodoView">
@@ -926,12 +929,12 @@
     <MESSAGE value="add loss_book_keeper and save for every 5 epochs" />
     <MESSAGE value="change some param name, update restorer twice during training(incase discriminator learns too fast)" />
     <MESSAGE value="update readme and try different loss function for restorer" />
-    <MESSAGE value="update readme" />
     <MESSAGE value="change vae to dAE_adversarial, update learning process:backprop reconstruct loss, backprop discriminator loss then backprop  restorer through discriminator results D_" />
     <MESSAGE value="remove os tf time files" />
     <MESSAGE value="add test set, now only 1024 pair, evaluate only take corresponding batch size image to test" />
     <MESSAGE value="move reference dcgan to it's own dir" />
-    <option name="LAST_COMMIT_MESSAGE" value="move reference dcgan to it's own dir" />
+    <MESSAGE value="update readme" />
+    <option name="LAST_COMMIT_MESSAGE" value="update readme" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1094,10 +1097,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
+    <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.354839">
-          <caret line="73" column="15" selection-start-line="73" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+        <state vertical-scroll-proportion="-12.225806">
+          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -1105,10 +1108,10 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/README.md">
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.92474675">
-          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.3227207">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding />
         </state>
       </provider>

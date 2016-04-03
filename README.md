@@ -10,7 +10,7 @@ our current focus:
 and randomly assign a rectangular mask on the face as the training data, so that is a tuple (masked_image, ground_truth_image)
 as training data.
 
-* [model](https://github.com/WenchenLi/PhotoRestoration/blob/master/python/DCGAN-tensorflow/vae.py): convolutional autoencoder/decoder followed by a discriminator taking masked image and groundtruth image to discriminate
+* [model](https://github.com/WenchenLi/PhotoRestoration/blob/master/python/DCGAN-tensorflow/dAE_adversarial.py): convolutional autoencoder/decoder followed by a discriminator taking masked image and groundtruth image to discriminate
 the restoration.
 
 
