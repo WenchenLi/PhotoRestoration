@@ -23,7 +23,7 @@ flags = tf.flags
 # logging = tf.logging
 flags.DEFINE_integer("image_size", 64, "The size of image to use [64]")
 flags.DEFINE_integer("batch_size", 1024, "batch size")
-flags.DEFINE_integer("updates_per_epoch", 100, "number of updates per epoch")
+flags.DEFINE_integer("updates_per_epoch", 1, "number of updates per epoch")
 flags.DEFINE_integer("max_epoch", 100, "max epoch")
 flags.DEFINE_float("r_learning_rate", 0.02, "learning rate")
 flags.DEFINE_string("working_directory", "data/", "directory where your data is")
@@ -231,7 +231,7 @@ if __name__ == "__main__":
                 pickle.dump(loss_book_keeper, output_loss_keeper)
                 output_loss_keeper.close()
 
-                x_masked, x_ground_truth = celebACropped.train.next_batch(FLAGS.batch_size)
+                x_masked, x_ground_truth = celebACropped.test.next_batch(FLAGS.batch_size)
                 imgs = sess.run(fetches=sampled_tensor, feed_dict={input_tensor: x_masked})
                 for k in range(FLAGS.batch_size):
                     imgs_folder = os.path.join(FLAGS.results_directory, 'imgs' + str(epoch))

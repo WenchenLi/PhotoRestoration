@@ -1,4 +1,4 @@
-#Copyright 2015 Google Inc. All Rights Reserved.
+# Copyright 2015 Google Inc. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 # ==============================================================================
 
 
-#Adaption of input_data for local dataset
+# Adaption of input_data for local dataset
 """Functions for downloading and reading MNIST data."""
 import gzip
 import os
@@ -93,11 +93,11 @@ def extract_labels(filename, one_hot=False, num_classes=10):
     return labels
 '''
 
-class DataSet(object):
 
-  def __init__(self, files, labels, fake_data=False, one_hot=False,
-               dtype=tf.float32):
-    """Construct a DataSet.
+class DataSet(object):
+    def __init__(self, files, labels, fake_data=False, one_hot=False,
+                 dtype=tf.float32):
+        """Construct a DataSet.
     one_hot arg is used only if fake_data is true.  `dtype` can be either
     `uint8` to leave the input as `[0, 255]`, or `float32` to rescale into
     `[0, 1]`.
@@ -125,74 +125,75 @@ class DataSet(object):
         images = images.astype(numpy.float32)
         images = numpy.multiply(images, 1.0 / 255.0)
     """
-    self._num_examples = len(files)
-    self._files = files
-    self._labels = labels
-    self._epochs_completed = 0
-    self._index_in_epoch = 0
+        self._num_examples = len(files)
+        self._files = files
+        self._labels = labels
+        self._epochs_completed = 0
+        self._index_in_epoch = 0
 
-  @property
-  def files(self):
-    return self._files
+    @property
+    def files(self):
+        return self._files
 
-  @property
-  def labels(self):
-    return self._labels
+    @property
+    def labels(self):
+        return self._labels
 
-  @property
-  def num_examples(self):
-    return self._num_examples
+    @property
+    def num_examples(self):
+        return self._num_examples
 
-  @property
-  def epochs_completed(self):
-    return self._epochs_completed
+    @property
+    def epochs_completed(self):
+        return self._epochs_completed
 
-  def next_batch(self, batch_size, fake_data=False):
-    """Return the next `batch_size` examples from this data set."""
-    if fake_data:
-      fake_image = [1] * 4096
-      if self.one_hot:
-        fake_label = [1] + [0] * 9
-      else:
-        fake_label = 0
-      return [fake_image for _ in xrange(batch_size)], [
-          fake_label for _ in xrange(batch_size)]
-    start = self._index_in_epoch
-    self._index_in_epoch += batch_size
-    if self._index_in_epoch > self._num_examples:
-      # Finished epoch
-      self._epochs_completed += 1
-      # Shuffle the data
-      random.shuffle(self._files)
-      #self._labels = self._labels[perm]
-      # Start next epoch
-      start = 0
-      self._index_in_epoch = batch_size
-      assert batch_size <= self._num_examples
-    end = self._index_in_epoch
-    #for now assuming 64x64 grayscale
-    imgs = np.zeros((4096, end - start))
-    masked_imgs = np.zeros((4096, end - start))
-    col = 0
-    for i in range(start,end):
-      img, masked = get_img_and_mask_gray(self._files[i])
-      imgs[:,col] = img.flatten()
-      masked_imgs[:,col] = masked.flatten()
-      col += 1
+    def next_batch(self, batch_size, fake_data=False):
+        """Return the next `batch_size` examples from this data set."""
+        if fake_data:
+            fake_image = [1] * 4096
+            if self.one_hot:
+                fake_label = [1] + [0] * 9
+            else:
+                fake_label = 0
+            return [fake_image for _ in xrange(batch_size)], [
+                fake_label for _ in xrange(batch_size)]
+        start = self._index_in_epoch
+        self._index_in_epoch += batch_size
+        if self._index_in_epoch > self._num_examples:
+            # Finished epoch
+            self._epochs_completed += 1
+            # Shuffle the data
+            random.shuffle(self._files)
+            # self._labels = self._labels[perm]
+            # Start next epoch
+            start = 0
+            self._index_in_epoch = batch_size
+            assert batch_size <= self._num_examples
+        end = self._index_in_epoch
+        # for now assuming 64x64 grayscale
+        imgs = np.zeros((4096, end - start))
+        masked_imgs = np.zeros((4096, end - start))
+        col = 0
+        for i in range(start, end):
+            img, masked = get_img_and_mask_gray(self._files[i])
+            imgs[:, col] = img.flatten()
+            masked_imgs[:, col] = masked.flatten()
+            col += 1
 
-    masked_imgs = masked_imgs.astype(numpy.float32)
-    imgs = imgs.astype(numpy.float32)
-    # print numpy.transpose(numpy.multiply(masked_imgs,1.0/255.0)).dtype
-    return  numpy.transpose(numpy.multiply(masked_imgs,1.0/255.0)),\
-            numpy.transpose(numpy.multiply(imgs,1.0/255.0))
+        masked_imgs = masked_imgs.astype(numpy.float32)
+        imgs = imgs.astype(numpy.float32)
+        # print numpy.transpose(numpy.multiply(masked_imgs,1.0/255.0)).dtype
+        return numpy.transpose(numpy.multiply(masked_imgs, 1.0 / 255.0)), \
+               numpy.transpose(numpy.multiply(imgs, 1.0 / 255.0))
+
 
 def read_data_sets(train_dir, dtype=tf.float32):
-  class DataSets(object):
-    pass
+    class DataSets(object):
+        pass
 
-  data_sets = DataSets()
-  data = glob(os.path.join(train_dir, "*.jpg"))
-  '''
+    data_sets = DataSets()
+    data = glob(os.path.join(train_dir, "*.jpg"))
+    '''
   if fake_data:
     def fake():
       return DataSet([], [], fake_data=True, one_hot=one_hot, dtype=dtype)
@@ -201,9 +202,10 @@ def read_data_sets(train_dir, dtype=tf.float32):
     data_sets.test = fake()
     return data_sets
   '''
-  
-  data_sets.train = DataSet(data,[])
-  '''
+
+    data_sets.train = DataSet(data[1024:], [])
+    data_sets.test = DataSet(data[:1024], [])
+    '''
   validation_images = train_images[:VALIDATION_SIZE]
   validation_labels = train_labels[:VALIDATION_SIZE]
   train_images = train_images[VALIDATION_SIZE:]
@@ -214,4 +216,4 @@ def read_data_sets(train_dir, dtype=tf.float32):
                                  dtype=dtype)
   data_sets.test = DataSet(test_images, test_labels, dtype=dtype)
   '''
-  return data_sets
+    return data_sets
