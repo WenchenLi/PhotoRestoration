@@ -1,21 +1,12 @@
 # Data
-data
-samples
+data/
 *.zip
-logs
-test*
 assets
 web
 LICENSE
-web/js/gen_layers.js
 
 # checkpoint
-checkpoint
-
-# trash
-.dropbox
-
-# Created by https://www.gitignore.io/api/python,vim
+checkpoint/
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
