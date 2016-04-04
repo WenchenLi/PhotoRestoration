@@ -23,13 +23,13 @@ flags = tf.flags
 # logging = tf.logging
 flags.DEFINE_integer("image_size", 64, "The size of image to use [64]")
 flags.DEFINE_integer("batch_size", 1024, "batch size")
-flags.DEFINE_integer("updates_per_epoch", 1, "number of updates per epoch")
+flags.DEFINE_integer("updates_per_epoch", 100, "number of updates per epoch")
 flags.DEFINE_integer("max_epoch", 100, "max epoch")
 flags.DEFINE_float("r_learning_rate", 0.02, "learning rate")
 flags.DEFINE_string("working_directory", "data/", "directory where your data is")
 flags.DEFINE_string("results_directory", "results/", "directory where to save your evaluation results")
 flags.DEFINE_string("checkpoint_dir", "checkpoint", "Directory name to save the checkpoints [checkpoint]")
-flags.DEFINE_integer("hidden_size", 18432, "size of the hidden VAE unit")
+flags.DEFINE_integer("hidden_size", 8192, "size of the hidden VAE unit")
 # D
 flags.DEFINE_float("beta1", 0.5, "Momentum term of adam [0.8]")
 flags.DEFINE_float("d_learning_rate", 0.0001, "Learning rate of for adam [0.0002]")
@@ -124,9 +124,11 @@ def get_reconstruction_cost(output_tensor, target_tensor, epsilon=1e-8):
         target_tensor: the target tensor that we want to reconstruct
         epsilon:
     '''
-    return tf.reduce_sum(-target_tensor * tf.log(output_tensor + epsilon) -
+    lr_cost = tf.reduce_sum(-target_tensor * tf.log(output_tensor + epsilon) -
                          (1.0 - target_tensor) * tf.log(1.0 - output_tensor + epsilon))
-    # return tf.nn.l2_loss(target_tensor-output_tensor)*2
+    l2_cost = tf.nn.l2_loss(target_tensor-output_tensor)*2
+
+    return l2_cost +.1 * lr_cost
 
 if __name__ == "__main__":
     # prep
