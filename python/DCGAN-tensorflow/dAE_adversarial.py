@@ -128,7 +128,7 @@ def get_reconstruction_cost(output_tensor, target_tensor, epsilon=1e-8):
                          (1.0 - target_tensor) * tf.log(1.0 - output_tensor + epsilon))
     l2_cost = tf.nn.l2_loss(target_tensor-output_tensor)*2
 
-    return l2_cost +.1 * lr_cost
+    return l2_cost +.01 * lr_cost
 
 if __name__ == "__main__":
     # prep
