@@ -4,7 +4,8 @@ Generative Convolutional Net for photo restoration
 * Convolution autoencoder/decoder with the help of discriminator
 
 ## TODO
-* rewrite encoder 
+* rewrite encoder without pretty tensor
+* write indicator when to stop training( equilibrium?)
 * write residual layer [torch reference](https://github.com/gcr/torch-residual-networks/blob/master/residual-layers.lua)
 * add batch norm in the restorer
 * try Perceptual Losses from [Perceptual Losses for Real-Time Style Transfer

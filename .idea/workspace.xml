@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="92b2fbc4-1671-429c-9671-c72c09e3db21" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python/DCGAN-tensorflow/README.md" afterPath="$PROJECT_DIR$/python/DCGAN-tensorflow/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python/DCGAN-tensorflow/dAE_adversarial.py" afterPath="$PROJECT_DIR$/python/DCGAN-tensorflow/dAE_adversarial.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python/DCGAN-tensorflow/deconv.py" afterPath="$PROJECT_DIR$/python/DCGAN-tensorflow/deconv.py" />
     </list>
     <list id="0162c5f5-f2f6-4c78-abd7-35cbb4b65ea5" name="New changelist" comment="" />
     <ignored path="PhotoRestoration.iws" />
@@ -49,11 +49,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dAE_adversarial.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="dAE_adversarial.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/dAE_adversarial.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.46603477">
-              <caret line="51" column="36" selection-start-line="51" selection-start-column="36" selection-end-line="51" selection-end-column="36" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="130" column="23" selection-start-line="130" selection-start-column="23" selection-end-line="130" selection-end-column="23" />
               <folding>
                 <element signature="e#102#166#0" expanded="true" />
               </folding>
@@ -61,11 +61,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.5161295">
-              <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.30232558">
+              <caret line="7" column="54" selection-start-line="7" selection-start-column="54" selection-end-line="7" selection-end-column="54" />
               <folding />
             </state>
           </provider>
@@ -173,9 +173,9 @@
         <option value="$PROJECT_DIR$/python/DCGAN-tensorflow/input_data.py" />
         <option value="$PROJECT_DIR$/python/DCGAN-tensorflow/.gitignore" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/python/DCGAN-tensorflow/README.md" />
         <option value="$PROJECT_DIR$/python/DCGAN-tensorflow/deconv.py" />
         <option value="$PROJECT_DIR$/python/DCGAN-tensorflow/dAE_adversarial.py" />
+        <option value="$PROJECT_DIR$/python/DCGAN-tensorflow/README.md" />
       </list>
     </option>
   </component>
@@ -905,7 +905,13 @@
       <option name="project" value="LOCAL" />
       <updated>1459820292910</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="pretty tensor can use default scope to specify batch norm">
+      <created>1459820882680</created>
+      <option name="number" value="00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1459820882680</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TodoView">
@@ -954,7 +960,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="switch the order of output of next_batch" />
     <MESSAGE value="reformat file, no code change" />
     <MESSAGE value="need to speedup the crop face preprocessing when have time" />
     <MESSAGE value="start training, pertty tensor is hard to configure output size" />
@@ -979,7 +984,8 @@
     <MESSAGE value="try reconstruction cost combining l2 and lr" />
     <MESSAGE value="update todo" />
     <MESSAGE value="add batch normalization to encoder and decoder" />
-    <option name="LAST_COMMIT_MESSAGE" value="add batch normalization to encoder and decoder" />
+    <MESSAGE value="pretty tensor can use default scope to specify batch norm" />
+    <option name="LAST_COMMIT_MESSAGE" value="pretty tensor can use default scope to specify batch norm" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1293,17 +1299,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.5161295">
-          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.83870965">
@@ -1325,12 +1320,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/dAE_adversarial.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46603477">
-          <caret line="51" column="36" selection-start-line="51" selection-start-column="36" selection-end-line="51" selection-end-column="36" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="130" column="23" selection-start-line="130" selection-start-column="23" selection-end-line="130" selection-end-column="23" />
           <folding>
             <element signature="e#102#166#0" expanded="true" />
           </folding>
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30232558">
+          <caret line="7" column="54" selection-start-line="7" selection-start-column="54" selection-end-line="7" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
       </provider>
     </entry>
   </component>
