@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="92b2fbc4-1671-429c-9671-c72c09e3db21" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python/DCGAN-tensorflow/README.md" afterPath="$PROJECT_DIR$/python/DCGAN-tensorflow/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python/DCGAN-tensorflow/dAE_adversarial.py" afterPath="$PROJECT_DIR$/python/DCGAN-tensorflow/dAE_adversarial.py" />
     </list>
     <list id="0162c5f5-f2f6-4c78-abd7-35cbb4b65ea5" name="New changelist" comment="" />
@@ -39,7 +38,7 @@
       <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="-0.83870965">
               <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
               <folding />
             </state>
@@ -49,11 +48,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dAE_adversarial.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="dAE_adversarial.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/dAE_adversarial.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="212" column="31" selection-start-line="212" selection-start-column="31" selection-end-line="212" selection-end-column="31" />
+            <state vertical-scroll-proportion="0.328594">
+              <caret line="92" column="38" selection-start-line="92" selection-start-column="38" selection-end-line="92" selection-end-column="38" />
               <folding>
                 <element signature="e#102#166#0" expanded="true" />
               </folding>
@@ -61,11 +60,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.049833886">
-              <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+            <state vertical-scroll-proportion="-8.5161295">
+              <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -98,21 +97,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="input_data.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/input_data.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="195" column="7" selection-start-line="195" selection-start-column="7" selection-end-line="195" selection-end-column="7" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/utils.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+              <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -121,8 +110,8 @@
       <file leaf-file-name="deconv.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/deconv.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="-14.0">
+              <caret line="40" column="30" selection-start-line="40" selection-start-column="15" selection-end-line="40" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -184,8 +173,8 @@
         <option value="$PROJECT_DIR$/python/DCGAN-tensorflow/input_data.py" />
         <option value="$PROJECT_DIR$/python/DCGAN-tensorflow/.gitignore" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/python/DCGAN-tensorflow/dAE_adversarial.py" />
         <option value="$PROJECT_DIR$/python/DCGAN-tensorflow/README.md" />
+        <option value="$PROJECT_DIR$/python/DCGAN-tensorflow/dAE_adversarial.py" />
       </list>
     </option>
   </component>
@@ -903,7 +892,13 @@
       <option name="project" value="LOCAL" />
       <updated>1459817552523</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="update todo">
+      <created>1459819470787</created>
+      <option name="number" value="00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1459819470787</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TodoView">
@@ -952,7 +947,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="before change FC, add some comments on code" />
     <MESSAGE value="drop FC" />
     <MESSAGE value="switch the order of output of next_batch" />
     <MESSAGE value="reformat file, no code change" />
@@ -977,7 +971,8 @@
     <MESSAGE value="update readme" />
     <MESSAGE value="update outer  readme" />
     <MESSAGE value="try reconstruction cost combining l2 and lr" />
-    <option name="LAST_COMMIT_MESSAGE" value="try reconstruction cost combining l2 and lr" />
+    <MESSAGE value="update todo" />
+    <option name="LAST_COMMIT_MESSAGE" value="update todo" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1240,41 +1235,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/deconv.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/input_data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="195" column="7" selection-start-line="195" selection-start-column="7" selection-end-line="195" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/lib/python2.7/dist-packages/tensorflow/python/training/optimizer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1282,30 +1242,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/ops.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/dAE_adversarial.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="212" column="31" selection-start-line="212" selection-start-column="31" selection-end-line="212" selection-end-column="31" />
-          <folding>
-            <element signature="e#102#166#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/dataset_example.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/input_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.04107425">
+          <caret line="195" column="7" selection-start-line="195" selection-start-column="7" selection-end-line="195" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1320,15 +1276,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/ops.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.049833886">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+        <state vertical-scroll-proportion="-8.5161295">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
           <folding />
         </state>
       </provider>
       <provider editor-type-id="MarkdownPreviewEditor">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.83870965">
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/deconv.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.0">
+          <caret line="40" column="30" selection-start-line="40" selection-start-column="15" selection-end-line="40" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/dAE_adversarial.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.328594">
+          <caret line="92" column="38" selection-start-line="92" selection-start-column="38" selection-end-line="92" selection-end-column="38" />
+          <folding>
+            <element signature="e#102#166#0" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
   </component>
