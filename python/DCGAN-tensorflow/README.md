@@ -4,12 +4,11 @@ Generative Convolutional Net for photo restoration
 * Convolution autoencoder/decoder with the help of discriminator
 
 ## TODO
+* rewrite encoder 
+* write residual layer [torch reference](https://github.com/gcr/torch-residual-networks/blob/master/residual-layers.lua)
 * add batch norm in the restorer
 * try Perceptual Losses from [Perceptual Losses for Real-Time Style Transfer
 and Super-Resolution](http://arxiv.org/pdf/1603.08155v1.pdf)
-* Check the detail of the implementation 
-* try residual net for generator ( maybe not a good idea here, since we prefer remain the original image representation instead of an encoded general or abstract concept).-->
-* Based on the concept of residual net, add encoded information of the problematic image into each layer (maybe face CNN) generator CNN to enforce the CNN to not to be too general/abstract about the input image.
 
 Prerequisites
 -------------

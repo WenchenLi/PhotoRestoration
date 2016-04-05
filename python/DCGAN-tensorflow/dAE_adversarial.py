@@ -25,14 +25,14 @@ flags.DEFINE_integer("image_size", 64, "The size of image to use [64]")
 flags.DEFINE_integer("batch_size", 1024, "batch size")
 flags.DEFINE_integer("updates_per_epoch", 100, "number of updates per epoch")
 flags.DEFINE_integer("max_epoch", 100, "max epoch")
-flags.DEFINE_float("r_learning_rate", 0.02, "learning rate")
+flags.DEFINE_float("r_learning_rate", 0.0001, "learning rate")
 flags.DEFINE_string("working_directory", "data/", "directory where your data is")
 flags.DEFINE_string("results_directory", "results/", "directory where to save your evaluation results")
 flags.DEFINE_string("checkpoint_dir", "checkpoint", "Directory name to save the checkpoints [checkpoint]")
 flags.DEFINE_integer("hidden_size", 8192, "size of the hidden VAE unit")
 # D
 flags.DEFINE_float("beta1", 0.5, "Momentum term of adam [0.8]")
-flags.DEFINE_float("d_learning_rate", 0.0001, "Learning rate of for adam [0.0002]")
+flags.DEFINE_float("d_learning_rate", 0.0002, "Learning rate of for adam [0.0002]")
 flags.DEFINE_integer("df_dim",64,"Dimension of discriminator filters in first conv layer. [64]")
 
 FLAGS = flags.FLAGS
@@ -127,7 +127,6 @@ def get_reconstruction_cost(output_tensor, target_tensor, epsilon=1e-8):
     lr_cost = tf.reduce_sum(-target_tensor * tf.log(output_tensor + epsilon) -
                          (1.0 - target_tensor) * tf.log(1.0 - output_tensor + epsilon))
     l2_cost = tf.nn.l2_loss(target_tensor-output_tensor)*2
-
     return l2_cost +.01 * lr_cost
 
 if __name__ == "__main__":
@@ -164,7 +163,7 @@ if __name__ == "__main__":
     rec_loss = get_reconstruction_cost(output_tensor, ground_truth_tensor,epsilon = 1e-12)
     # loss = vae_loss + rec_loss
     r_loss = rec_loss #+g_loss
-    r_optim = tf.train.AdamOptimizer(FLAGS.r_learning_rate, epsilon=1.0)
+    r_optim = tf.train.AdamOptimizer(FLAGS.r_learning_rate, epsilon=1e-12)
     r_train = pt.apply_optimizer(r_optim, losses=[r_loss])
 
     # Discriminator
