@@ -128,9 +128,7 @@ class deconv2d_hack(prettytensor.VarStoreMethod):
           activation_fn[0],
           activation_args=activation_fn[1:])
     return input_layer.with_tensor(y)
-# pylint: enable=redefined-outer-name,invalid-name
 
-# Helper methods
 
 def get2d_deconv_output_size(input_height, input_width, filter_height,
                            filter_width, row_stride, col_stride, padding_type):
@@ -171,10 +169,8 @@ def _kernel(kernel_spec):
   Returns:
     A length 2 list.
   """
-  if isinstance(kernel_spec, int):
-    return [kernel_spec, kernel_spec]
-  elif len(kernel_spec) == 1:
-    return [kernel_spec[0], kernel_spec[0]]
+  if isinstance(kernel_spec, int): return [kernel_spec, kernel_spec]
+  elif len(kernel_spec) == 1:return [kernel_spec[0], kernel_spec[0]]
   else:
     assert len(kernel_spec) == 2
     return kernel_spec
@@ -188,14 +184,10 @@ def _stride(stride_spec):
   Returns:
     A length 4 list.
   """
-  if stride_spec is None:
-    return [1, 1, 1, 1]
-  elif isinstance(stride_spec, int):
-    return [1, stride_spec, stride_spec, 1]
-  elif len(stride_spec) == 1:
-    return [1, stride_spec[0], stride_spec[0], 1]
-  elif len(stride_spec) == 2:
-    return [1, stride_spec[0], stride_spec[1], 1]
+  if stride_spec is None: return [1, 1, 1, 1]
+  elif isinstance(stride_spec, int): return [1, stride_spec, stride_spec, 1]
+  elif len(stride_spec) == 1: return [1, stride_spec[0], stride_spec[0], 1]
+  elif len(stride_spec) == 2: return [1, stride_spec[0], stride_spec[1], 1]
   else:
     assert len(stride_spec) == 4
     return stride_spec
