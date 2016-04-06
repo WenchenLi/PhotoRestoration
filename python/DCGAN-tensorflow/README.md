@@ -6,6 +6,7 @@ Generative Convolutional Net for photo restoration
 * rectangular patch can be used to proximate any problematic area in the input image. So setting different shape of rectangular area as missing patch mask is a good starting point. 
 ## TODO
 * mask shape should be more distinct 
+* force attention on filling the problematic area by only backprop the error in the masked area
 * rewrite encoder without pretty tensor
 * write indicator when to stop training( equilibrium?)
 * write residual layer [torch reference](https://github.com/gcr/torch-residual-networks/blob/master/residual-layers.lua)
