@@ -29,7 +29,7 @@ flags.DEFINE_float("r_learning_rate", 0.01, "learning rate")
 flags.DEFINE_string("working_directory", "data/", "directory where your data is")
 flags.DEFINE_string("results_directory", "results/", "directory where to save your evaluation results")
 flags.DEFINE_string("checkpoint_dir", "checkpoint", "Directory name to save the checkpoints [checkpoint]")
-flags.DEFINE_integer("hidden_size", 8192, "size of the hidden VAE unit")
+flags.DEFINE_integer("hidden_size", 4096, "size of the hidden VAE unit")
 # D
 flags.DEFINE_float("beta1", 0.5, "Momentum term of adam [0.8]")
 flags.DEFINE_float("d_learning_rate", 0.02, "Learning rate of for adam [0.0002]")

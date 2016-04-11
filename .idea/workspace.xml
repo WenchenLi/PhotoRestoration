@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="92b2fbc4-1671-429c-9671-c72c09e3db21" name="Default" comment="start traini">
+    <list default="true" id="92b2fbc4-1671-429c-9671-c72c09e3db21" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python/DCGAN-tensorflow/dAE_adversarial.py" afterPath="$PROJECT_DIR$/python/DCGAN-tensorflow/dAE_adversarial.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python/DCGAN-tensorflow/input_data.py" afterPath="$PROJECT_DIR$/python/DCGAN-tensorflow/input_data.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python/DCGAN-tensorflow/utils.py" afterPath="$PROJECT_DIR$/python/DCGAN-tensorflow/utils.py" />
     </list>
     <list id="0162c5f5-f2f6-4c78-abd7-35cbb4b65ea5" name="New changelist" comment="" />
     <ignored path="PhotoRestoration.iws" />
@@ -53,8 +51,8 @@
       <file leaf-file-name="dAE_adversarial.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/dAE_adversarial.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5245614">
-              <caret line="235" column="61" selection-start-line="235" selection-start-column="61" selection-end-line="235" selection-end-column="61" />
+            <state vertical-scroll-proportion="0.66140354">
+              <caret line="34" column="36" selection-start-line="34" selection-start-column="36" selection-end-line="34" selection-end-column="36" />
               <folding>
                 <element signature="e#102#166#0" expanded="true" />
               </folding>
@@ -694,12 +692,6 @@
       <option name="number" value="Default" />
       <updated>1455333206806</updated>
     </task>
-    <task id="LOCAL-00003" summary="save cropped face to /dataimages/face_cropped after loading image">
-      <created>1455988969689</created>
-      <option name="number" value="00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1455988969689</updated>
-    </task>
     <task id="LOCAL-00004" summary="remove green rectangle on cropped face">
       <created>1456265796676</created>
       <option name="number" value="00004" />
@@ -988,7 +980,13 @@
       <option name="project" value="LOCAL" />
       <updated>1460389756894</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="start training with restore attention on the mask area by reconstruct loss only on mask area">
+      <created>1460414630999</created>
+      <option name="number" value="00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1460414630999</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1037,7 +1035,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="need to speedup the crop face preprocessing when have time" />
     <MESSAGE value="start training, pertty tensor is hard to configure output size" />
     <MESSAGE value="add change to float32 when get batch in input_data, vae need to write evaluation, currently is just random sample from the as the encoded result to decode" />
     <MESSAGE value="add random init in decoder results, working on decoder take in encoded problematic image" />
@@ -1062,7 +1059,8 @@
     <MESSAGE value="pretty tensor can use default scope to specify batch norm" />
     <MESSAGE value="update readme" />
     <MESSAGE value="retrieve mask coordinates" />
-    <option name="LAST_COMMIT_MESSAGE" value="retrieve mask coordinates" />
+    <MESSAGE value="start training with restore attention on the mask area by reconstruct loss only on mask area" />
+    <option name="LAST_COMMIT_MESSAGE" value="start training with restore attention on the mask area by reconstruct loss only on mask area" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1531,8 +1529,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/python/DCGAN-tensorflow/dAE_adversarial.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5245614">
-          <caret line="235" column="61" selection-start-line="235" selection-start-column="61" selection-end-line="235" selection-end-column="61" />
+        <state vertical-scroll-proportion="0.66140354">
+          <caret line="34" column="36" selection-start-line="34" selection-start-column="36" selection-end-line="34" selection-end-column="36" />
           <folding>
             <element signature="e#102#166#0" expanded="true" />
           </folding>
