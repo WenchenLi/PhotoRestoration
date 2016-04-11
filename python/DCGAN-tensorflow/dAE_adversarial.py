@@ -197,7 +197,7 @@ if __name__ == "__main__":
             pbar.start()
             for i in range(FLAGS.updates_per_epoch):
                 pbar.update(i)
-                x_masked, x_ground_truth = celebACropped.train.next_batch(FLAGS.batch_size)
+                mask, x_masked, x_ground_truth = celebACropped.train.next_batch(FLAGS.batch_size)
                 # Restorer reconstruct
                 _, loss_value = sess.run(fetches=[r_train, r_loss],
                                          feed_dict={input_tensor: x_masked, ground_truth_tensor: x_ground_truth})
@@ -230,7 +230,7 @@ if __name__ == "__main__":
                 pickle.dump(loss_book_keeper, output_loss_keeper)
                 output_loss_keeper.close()
 
-                x_masked, x_ground_truth = celebACropped.test.next_batch(FLAGS.batch_size)
+                mask,x_masked, x_ground_truth = celebACropped.test.next_batch(FLAGS.batch_size)
                 imgs = sess.run(fetches=sampled_tensor, feed_dict={input_tensor: x_masked})
                 for k in range(FLAGS.batch_size):
                     imgs_folder = os.path.join(FLAGS.results_directory, 'imgs' + str(epoch))

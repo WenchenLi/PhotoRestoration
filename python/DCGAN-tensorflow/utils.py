@@ -24,8 +24,10 @@ def get_image(image_path, image_size, is_crop=False, is_crop_face=False, create_
     else:
         return transform(crop_face(cv2.imread(image_path)), image_size, is_crop)
 
+
 def get_img_and_mask_gray(image_path):
     return mask_img(cv2.imread(image_path, cv2.CV_LOAD_IMAGE_GRAYSCALE))
+
 
 def get_img_and_mask(image_path):
     return mask_img(cv2.imread(image_path))
@@ -60,17 +62,18 @@ def mask_img(img):
     x = random.randint(0, 2 * (img.shape[1] / 3))
     dy = random.randint(10, img.shape[0] / 3)
     dx = random.randint(10, img.shape[1] / 3)
+    mask = (y,dy,x,dx)
     if len(img.shape) == 2:
-	masked_img[y:y+dy, x:x +dx] = 255
+        masked_img[y:y + dy, x:x + dx] = 255
     else:
         masked_img[y:y + dy, x:x + dx] = np.array([255, 255, 255])
-    return img, masked_img
+    return img, masked_img,mask
 
 
 def test_mask_img():
     for i in range(100):
         img = crop_face(cv2.imread("data/celebA/000058.jpg"))
-        a, b = mask_img(img)
+        a, b,mask = mask_img(img)
         cv2.imwrite("img_testing/" + str(i) + ".jpg", b)
 
 
@@ -126,7 +129,7 @@ def transform(image, npx=64, is_crop=True):
 
 
 def inverse_transform(images):
-    #return (images + 1.) / 2.
+    # return (images + 1.) / 2.
     return images
 
 

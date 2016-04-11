@@ -175,7 +175,7 @@ class DataSet(object):
         masked_imgs = np.zeros((4096, end - start))
         col = 0
         for i in range(start, end):
-            img, masked = get_img_and_mask_gray(self._files[i])
+            img, masked,mask = get_img_and_mask_gray(self._files[i])
             imgs[:, col] = img.flatten()
             masked_imgs[:, col] = masked.flatten()
             col += 1
@@ -183,7 +183,7 @@ class DataSet(object):
         masked_imgs = masked_imgs.astype(numpy.float32)
         imgs = imgs.astype(numpy.float32)
         # print numpy.transpose(numpy.multiply(masked_imgs,1.0/255.0)).dtype
-        return numpy.transpose(numpy.multiply(masked_imgs, 1.0 / 255.0)), \
+        return mask,numpy.transpose(numpy.multiply(masked_imgs, 1.0 / 255.0)), \
                numpy.transpose(numpy.multiply(imgs, 1.0 / 255.0))
 
 
