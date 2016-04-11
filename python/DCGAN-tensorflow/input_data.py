@@ -173,17 +173,24 @@ class DataSet(object):
         # for now assuming 64x64 grayscale
         imgs = np.zeros((4096, end - start))
         masked_imgs = np.zeros((4096, end - start))
+        masks = np.zeros((4096, end - start))
+        mask_coordinates = np.zeros((4, end - start))
         col = 0
         for i in range(start, end):
-            img, masked,mask = get_img_and_mask_gray(self._files[i])
+            img, masked, mask = get_img_and_mask_gray(self._files[i])
             imgs[:, col] = img.flatten()
             masked_imgs[:, col] = masked.flatten()
+            masks[:, col] = mask.flatten()
+            # mask_coordinate[:, col] = mask_coordinate
             col += 1
 
+        masks = masks.astype(numpy.float32)
         masked_imgs = masked_imgs.astype(numpy.float32)
         imgs = imgs.astype(numpy.float32)
+        print masks.shape,imgs.shape
         # print numpy.transpose(numpy.multiply(masked_imgs,1.0/255.0)).dtype
-        return mask,numpy.transpose(numpy.multiply(masked_imgs, 1.0 / 255.0)), \
+        return numpy.transpose(numpy.multiply(masks, 1.0 / 255.0)),\
+               numpy.transpose(numpy.multiply(masked_imgs, 1.0 / 255.0)), \
                numpy.transpose(numpy.multiply(imgs, 1.0 / 255.0))
 
 

@@ -62,18 +62,20 @@ def mask_img(img):
     x = random.randint(0, 2 * (img.shape[1] / 3))
     dy = random.randint(10, img.shape[0] / 3)
     dx = random.randint(10, img.shape[1] / 3)
-    mask = (y,dy,x,dx)
+    # mask_coordinates  = np.array([y,dy,x,dx])
+    mask = np.zeros(img.shape)
+    mask[y:y + dy, x:x + dx] = 255
     if len(img.shape) == 2:
         masked_img[y:y + dy, x:x + dx] = 255
     else:
         masked_img[y:y + dy, x:x + dx] = np.array([255, 255, 255])
-    return img, masked_img,mask
+    return img, masked_img, mask#, mask_coordinates
 
 
 def test_mask_img():
     for i in range(100):
         img = crop_face(cv2.imread("data/celebA/000058.jpg"))
-        a, b,mask = mask_img(img)
+        a, b,mask= mask_img(img)
         cv2.imwrite("img_testing/" + str(i) + ".jpg", b)
 
 

@@ -33,12 +33,12 @@ flags.DEFINE_integer("hidden_size", 8192, "size of the hidden VAE unit")
 # D
 flags.DEFINE_float("beta1", 0.5, "Momentum term of adam [0.8]")
 flags.DEFINE_float("d_learning_rate", 0.02, "Learning rate of for adam [0.0002]")
-flags.DEFINE_integer("df_dim",64,"Dimension of discriminator filters in first conv layer. [64]")
+flags.DEFINE_integer("df_dim", 64, "Dimension of discriminator filters in first conv layer. [64]")
 
 FLAGS = flags.FLAGS
 
 
-def encoder(input_tensor,reuse=False):
+def encoder(input_tensor, reuse=False):
     '''Create encoder network.
     Args:
         input_tensor: a batch of flattened images [batch_size, 64*64]
@@ -56,7 +56,7 @@ def encoder(input_tensor,reuse=False):
     # fully_connected(FLAGS.hidden_size * 2, activation_fn=None)).tensor
 
 
-def decoder(input_tensor=None,reuse=False):
+def decoder(input_tensor=None, reuse=False):
     '''Create decoder network.
         If input tensor is provided then decodes it, otherwise samples from 
         a sampled vector.
@@ -95,7 +95,7 @@ def discriminator(image, reuse=False):
     d_bn1 = ops.batch_norm(FLAGS.batch_size, name='d_bn1')
     d_bn2 = ops.batch_norm(FLAGS.batch_size, name='d_bn2')
     d_bn3 = ops.batch_norm(FLAGS.batch_size, name='d_bn3')
-    image = tf.reshape(image,[FLAGS.batch_size,FLAGS.image_size,FLAGS.image_size,1])
+    image = tf.reshape(image, [FLAGS.batch_size, FLAGS.image_size, FLAGS.image_size, 1])
     if reuse: tf.get_variable_scope().reuse_variables()
     h0 = ops.lrelu(ops.conv2d(image, FLAGS.df_dim, name='d_h0_conv'))
     h1 = ops.lrelu(d_bn1(ops.conv2d(h0, FLAGS.df_dim * 2, name='d_h1_conv')))
@@ -117,7 +117,7 @@ def get_vae_cost(mean, stddev, epsilon=1e-8):
                                 2.0 * tf.log(stddev + epsilon) - 1.0))
 
 
-def get_reconstruction_cost(output_tensor, target_tensor, epsilon=1e-8):
+def get_reconstruction_cost(output_tensor, target_tensor, mask=None, epsilon=1e-8):
     '''Reconstruction loss
     Cross entropy reconstruction loss
     Args:
@@ -125,10 +125,13 @@ def get_reconstruction_cost(output_tensor, target_tensor, epsilon=1e-8):
         target_tensor: the target tensor that we want to reconstruct
         epsilon:
     '''
+    if mask: output_tensor, target_tensor = tf.mul(output_tensor, mask), tf.mul(target_tensor, mask)
+
     lr_cost = tf.reduce_sum(-target_tensor * tf.log(output_tensor + epsilon) -
-                         (1.0 - target_tensor) * tf.log(1.0 - output_tensor + epsilon))
-    l2_cost = tf.nn.l2_loss(target_tensor-output_tensor)*2
-    return l2_cost +.001 * lr_cost
+                            (1.0 - target_tensor) * tf.log(1.0 - output_tensor + epsilon))
+    l2_cost = tf.nn.l2_loss(target_tensor - output_tensor) * 2
+    return l2_cost
+
 
 if __name__ == "__main__":
     # prep
@@ -136,13 +139,20 @@ if __name__ == "__main__":
     if not os.path.exists(FLAGS.checkpoint_dir): os.makedirs(FLAGS.checkpoint_dir)
     if not os.path.exists(data_directory): os.makedirs(data_directory)
     celebACropped = input_data.read_data_sets(data_directory)
-    loss_book_keeper=[]
+    loss_book_keeper = []
     # build model
-    input_tensor = tf.placeholder(tf.float32, [FLAGS.batch_size, FLAGS.image_size * FLAGS.image_size],name="input_tensor")
-    ground_truth_tensor = tf.placeholder(tf.float32, [FLAGS.batch_size, FLAGS.image_size * FLAGS.image_size],name="gt_tensor")
-    sampled_tensor = tf.placeholder(tf.float32, [FLAGS.batch_size, FLAGS.image_size * FLAGS.image_size],name='sampled_tensor')
-    output_tensor = tf.placeholder(tf.float32, [FLAGS.batch_size, FLAGS.image_size * FLAGS.image_size],name='output_tensor')
-
+    input_tensor = tf.placeholder(tf.float32, [FLAGS.batch_size, FLAGS.image_size * FLAGS.image_size],
+                                  name="input_tensor")
+    ground_truth_tensor = tf.placeholder(tf.float32, [FLAGS.batch_size, FLAGS.image_size * FLAGS.image_size],
+                                         name="gt_tensor")
+    mask_tensor = tf.placeholder(tf.float32, [FLAGS.batch_size, FLAGS.image_size * FLAGS.image_size],
+                                 name="mask_tensor")
+    sampled_tensor = tf.placeholder(tf.float32, [FLAGS.batch_size, FLAGS.image_size * FLAGS.image_size],
+                                    name='sampled_tensor')
+    output_tensor = tf.placeholder(tf.float32, [FLAGS.batch_size, FLAGS.image_size * FLAGS.image_size],
+                                   name='output_tensor')
+    restored_tensor = tf.placeholder(tf.float32, [FLAGS.batch_size, FLAGS.image_size * FLAGS.image_size],
+                                     name='restored_tensor')
     with pt.defaults_scope(activation_fn=tf.nn.elu,
                            batch_normalize=True,
                            learned_moments_update_rate=0.0003,
@@ -152,15 +162,16 @@ if __name__ == "__main__":
             with tf.variable_scope("model") as scope:
                 output_tensor, mean, stddev = decoder(encoder(input_tensor))
                 D = discriminator(ground_truth_tensor)
-                D_ = discriminator(output_tensor, reuse=True)
+                D_ = discriminator(tf.add(input_tensor, tf.mul(output_tensor, mask_tensor)), reuse=True)
 
         with pt.defaults_scope(phase=pt.Phase.test):
             with tf.variable_scope("model", reuse=True) as scope:
                 sampled_tensor, _, _ = decoder(encoder(input_tensor))
-
+                restored_tensor = tf.add(input_tensor, tf.mul(sampled_tensor, mask_tensor))
     # Restorer reconstruct
-    rec_loss = get_reconstruction_cost(output_tensor, ground_truth_tensor,epsilon = 1e-12)
-    r_loss = rec_loss #+g_loss
+    rec_loss = get_reconstruction_cost(output_tensor, ground_truth_tensor,
+                                       mask=mask_tensor, epsilon=1e-12)
+    r_loss = rec_loss  # +g_loss
     r_optim = tf.train.AdamOptimizer(FLAGS.r_learning_rate, epsilon=1e-12)
     r_train = pt.apply_optimizer(r_optim, losses=[r_loss])
 
@@ -198,30 +209,38 @@ if __name__ == "__main__":
             for i in range(FLAGS.updates_per_epoch):
                 pbar.update(i)
                 mask, x_masked, x_ground_truth = celebACropped.train.next_batch(FLAGS.batch_size)
+                print (mask.shape)
+                print ('reconstruct')
                 # Restorer reconstruct
                 _, loss_value = sess.run(fetches=[r_train, r_loss],
-                                         feed_dict={input_tensor: x_masked, ground_truth_tensor: x_ground_truth})
+                                         feed_dict={input_tensor: x_masked,
+                                                    mask_tensor: mask,
+                                                    ground_truth_tensor: x_ground_truth})
+                print ('discriminator')
                 # discriminator
                 _, summary_str = sess.run(fetches=[d_optim, d_sum],
-                                          feed_dict={input_tensor: x_masked, ground_truth_tensor: x_ground_truth})
-                                          #as long as specified input, even if it's chained , tf graph can figure
-                                          #it out, so no need to work on the intermediate result(output tensor at
-                                          #this case )
-                 # Restorer adverse discriminator
+                                          feed_dict={input_tensor: x_masked,
+                                                     mask_tensor: mask,
+                                                     ground_truth_tensor: x_ground_truth})
+                # as long as specified input, even if it's chained , tf graph can figure
+                # it out, so no need to work on the intermediate result(output tensor at
+                # this case )
+                print ('restorer adverse discriminator')
+                # Restorer adverse discriminator
                 _, g_loss_value = sess.run(fetches=[g_train, g_loss],
-                                         feed_dict={input_tensor: x_masked})
+                                           feed_dict={input_tensor: x_masked,
+                                                      mask_tensor: mask})
 
                 # update restorer again in case discriminator learns too fast that they can't reach equilibrium state
                 # _, loss_value = sess.run(fetches=[r_train, r_loss],
                 #                          feed_dict={input_tensor: x_masked, ground_truth_tensor: x_ground_truth})
 
-                errD_fake = d_loss_fake.eval({input_tensor: x_masked})
+                errD_fake = d_loss_fake.eval({input_tensor: x_masked,mask_tensor: mask})
                 errD_real = d_loss_real.eval({ground_truth_tensor: x_ground_truth})
-                errG = g_loss_value/float(FLAGS.batch_size*(FLAGS.image_size**2))
+                errG = g_loss_value / float(FLAGS.batch_size * (FLAGS.image_size ** 2))
                 print("Epoch: [%2d] update batch: [%4d] , d_loss: %.8f, g_loss: %.8f" \
                       % (epoch, i, errD_fake + errD_real, errG))
                 loss_book_keeper.append((epoch, i, errD_fake + errD_real, errG))
-
 
             if epoch % 5 == 0:
                 print("reached %5==0, save and evaluate results")
@@ -230,8 +249,8 @@ if __name__ == "__main__":
                 pickle.dump(loss_book_keeper, output_loss_keeper)
                 output_loss_keeper.close()
 
-                mask,x_masked, x_ground_truth = celebACropped.test.next_batch(FLAGS.batch_size)
-                imgs = sess.run(fetches=sampled_tensor, feed_dict={input_tensor: x_masked})
+                mask_coordinates, mask, x_masked, x_ground_truth = celebACropped.test.next_batch(FLAGS.batch_size)
+                imgs = sess.run(fetches=restored_tensor, feed_dict={input_tensor: x_masked,mask_tensor:mask})
                 for k in range(FLAGS.batch_size):
                     imgs_folder = os.path.join(FLAGS.results_directory, 'imgs' + str(epoch))
                     if not os.path.exists(imgs_folder): os.makedirs(imgs_folder)
