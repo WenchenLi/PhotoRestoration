@@ -157,7 +157,9 @@ if __name__ == "__main__":
                            batch_normalize=True,
                            learned_moments_update_rate=0.0003,
                            variance_epsilon=0.001,
-                           scale_after_normalization=True):
+                           scale_after_normalization=True):#multiply by gamma?
+        # https://github.com/google/prettytensor/blob/master/prettytensor/pretty_tensor_image_methods.py
+        #https://github.com/Lasagne/Lasagne/issues/141
         with pt.defaults_scope(phase=pt.Phase.train):
             with tf.variable_scope("model") as scope:
                 output_tensor, mean, stddev = decoder(encoder(input_tensor))
@@ -167,10 +169,11 @@ if __name__ == "__main__":
         with pt.defaults_scope(phase=pt.Phase.test):
             with tf.variable_scope("model", reuse=True) as scope:
                 sampled_tensor, _, _ = decoder(encoder(input_tensor))
-                restored_tensor = tf.add(input_tensor, tf.mul(sampled_tensor, mask_tensor))
+                restored_tensor = tf.add(tf.mul(input_tensor, tf.sub(tf.ones_like(mask_tensor),mask_tensor)),
+                                         tf.mul(sampled_tensor, mask_tensor))
     # Restorer reconstruct
     rec_loss = get_reconstruction_cost(output_tensor, ground_truth_tensor,
-                                       mask=mask_tensor, epsilon=1e-12)
+                                       mask=None, epsilon=1e-12)
     r_loss = rec_loss  # +g_loss
     r_optim = tf.train.AdamOptimizer(FLAGS.r_learning_rate, epsilon=1e-12)
     r_train = pt.apply_optimizer(r_optim, losses=[r_loss])
@@ -186,7 +189,7 @@ if __name__ == "__main__":
     d_loss_sum = tf.scalar_summary("d_loss", d_loss)
     t_vars = tf.trainable_variables()
     d_vars = [var for var in t_vars if 'd_' in var.name]
-    d_optim = tf.train.AdamOptimizer(FLAGS.d_learning_rate, beta1=FLAGS.beta1) \
+    d_optim = tf.train.AdamOptimizer(FLAGS.d_learning_rate/10, beta1=FLAGS.beta1) \
         .minimize(d_loss, var_list=d_vars)
 
     # Restorer adverse Discriminator
@@ -209,37 +212,33 @@ if __name__ == "__main__":
             for i in range(FLAGS.updates_per_epoch):
                 pbar.update(i)
                 mask, x_masked, x_ground_truth = celebACropped.train.next_batch(FLAGS.batch_size)
-                print (mask.shape)
-                print ('reconstruct')
+                # print (mask.shape)
+                # print ('reconstruct')
                 # Restorer reconstruct
                 _, loss_value = sess.run(fetches=[r_train, r_loss],
                                          feed_dict={input_tensor: x_masked,
                                                     mask_tensor: mask,
                                                     ground_truth_tensor: x_ground_truth})
-                print ('discriminator')
+                # print ('discriminator')
                 # discriminator
                 _, summary_str = sess.run(fetches=[d_optim, d_sum],
                                           feed_dict={input_tensor: x_masked,
                                                      mask_tensor: mask,
                                                      ground_truth_tensor: x_ground_truth})
-                # as long as specified input, even if it's chained , tf graph can figure
-                # it out, so no need to work on the intermediate result(output tensor at
-                # this case )
-                print ('restorer adverse discriminator')
+                # print ('restorer adverse discriminator')
                 # Restorer adverse discriminator
                 _, g_loss_value = sess.run(fetches=[g_train, g_loss],
                                            feed_dict={input_tensor: x_masked,
                                                       mask_tensor: mask})
-
                 # update restorer again in case discriminator learns too fast that they can't reach equilibrium state
                 # _, loss_value = sess.run(fetches=[r_train, r_loss],
                 #                          feed_dict={input_tensor: x_masked, ground_truth_tensor: x_ground_truth})
-
+                errG_recons = loss_value/float(FLAGS.batch_size * (FLAGS.image_size ** 2))
                 errD_fake = d_loss_fake.eval({input_tensor: x_masked,mask_tensor: mask})
                 errD_real = d_loss_real.eval({ground_truth_tensor: x_ground_truth})
                 errG = g_loss_value / float(FLAGS.batch_size * (FLAGS.image_size ** 2))
-                print("Epoch: [%2d] update batch: [%4d] , d_loss: %.8f, g_loss: %.8f" \
-                      % (epoch, i, errD_fake + errD_real, errG))
+                print("Epoch: [%2d] update batch: [%4d] ,r_loss: %.8f, d_loss: %.8f, g_loss: %.8f" \
+                      % (epoch, i,errG_recons ,errD_fake + errD_real, errG))
                 loss_book_keeper.append((epoch, i, errD_fake + errD_real, errG))
 
             if epoch % 5 == 0:
@@ -249,8 +248,8 @@ if __name__ == "__main__":
                 pickle.dump(loss_book_keeper, output_loss_keeper)
                 output_loss_keeper.close()
 
-                mask_coordinates, mask, x_masked, x_ground_truth = celebACropped.test.next_batch(FLAGS.batch_size)
-                imgs = sess.run(fetches=restored_tensor, feed_dict={input_tensor: x_masked,mask_tensor:mask})
+                mask, x_masked, x_ground_truth = celebACropped.test.next_batch(FLAGS.batch_size)
+                imgs,sampled_img = sess.run(fetches=[restored_tensor,sampled_tensor], feed_dict={input_tensor: x_masked,mask_tensor:mask})
                 for k in range(FLAGS.batch_size):
                     imgs_folder = os.path.join(FLAGS.results_directory, 'imgs' + str(epoch))
                     if not os.path.exists(imgs_folder): os.makedirs(imgs_folder)
@@ -260,3 +259,7 @@ if __name__ == "__main__":
                            x_masked[k].reshape(FLAGS.image_size, FLAGS.image_size))
                     imsave(os.path.join(imgs_folder, '%d.' + '_ground_truth.png') % k,
                            x_ground_truth[k].reshape(FLAGS.image_size, FLAGS.image_size))
+                    imsave(os.path.join(imgs_folder, '%d' + '_sampled_img.png') % k,
+                           sampled_img[k].reshape(FLAGS.image_size, FLAGS.image_size))
+                    imsave(os.path.join(imgs_folder, '%d' + '_pure_mask.png') % k,
+                           mask[k].reshape(FLAGS.image_size, FLAGS.image_size))

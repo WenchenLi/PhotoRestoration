@@ -187,7 +187,7 @@ class DataSet(object):
         masks = masks.astype(numpy.float32)
         masked_imgs = masked_imgs.astype(numpy.float32)
         imgs = imgs.astype(numpy.float32)
-        print masks.shape,imgs.shape
+        # print masks.shape,imgs.shape
         # print numpy.transpose(numpy.multiply(masked_imgs,1.0/255.0)).dtype
         return numpy.transpose(numpy.multiply(masks, 1.0 / 255.0)),\
                numpy.transpose(numpy.multiply(masked_imgs, 1.0 / 255.0)), \
