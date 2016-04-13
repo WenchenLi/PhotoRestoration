@@ -25,14 +25,14 @@ flags.DEFINE_integer("image_size", 64, "The size of image to use [64]")
 flags.DEFINE_integer("batch_size", 1024, "batch size")
 flags.DEFINE_integer("updates_per_epoch", 100, "number of updates per epoch")
 flags.DEFINE_integer("max_epoch", 100, "max epoch")
-flags.DEFINE_float("r_learning_rate", 0.01, "learning rate")
+flags.DEFINE_float("r_learning_rate", 0.001, "learning rate")
 flags.DEFINE_string("working_directory", "data/", "directory where your data is")
 flags.DEFINE_string("results_directory", "results/", "directory where to save your evaluation results")
 flags.DEFINE_string("checkpoint_dir", "checkpoint", "Directory name to save the checkpoints [checkpoint]")
 flags.DEFINE_integer("hidden_size", 4096, "size of the hidden VAE unit")
 # D
 flags.DEFINE_float("beta1", 0.5, "Momentum term of adam [0.8]")
-flags.DEFINE_float("d_learning_rate", 0.02, "Learning rate of for adam [0.0002]")
+flags.DEFINE_float("d_learning_rate", 0.0002, "Learning rate of for adam [0.0002]")
 flags.DEFINE_integer("df_dim", 64, "Dimension of discriminator filters in first conv layer. [64]")
 
 FLAGS = flags.FLAGS
@@ -105,18 +105,6 @@ def discriminator(image, reuse=False):
     return tf.nn.sigmoid(h4)
 
 
-def get_vae_cost(mean, stddev, epsilon=1e-8):
-    '''VAE loss
-        See the paper
-    Args:
-        mean: 
-        stddev:
-        epsilon:
-    '''
-    return tf.reduce_sum(0.5 * (tf.square(mean) + tf.square(stddev) -
-                                2.0 * tf.log(stddev + epsilon) - 1.0))
-
-
 def get_reconstruction_cost(output_tensor, target_tensor, mask=None, epsilon=1e-8):
     '''Reconstruction loss
     Cross entropy reconstruction loss
@@ -125,12 +113,21 @@ def get_reconstruction_cost(output_tensor, target_tensor, mask=None, epsilon=1e-
         target_tensor: the target tensor that we want to reconstruct
         epsilon:
     '''
-    if mask: output_tensor, target_tensor = tf.mul(output_tensor, mask), tf.mul(target_tensor, mask)
 
-    lr_cost = tf.reduce_sum(-target_tensor * tf.log(output_tensor + epsilon) -
-                            (1.0 - target_tensor) * tf.log(1.0 - output_tensor + epsilon))
-    l2_cost = tf.nn.l2_loss(target_tensor - output_tensor) * 2
-    return l2_cost
+    if mask:
+        masked_output_tensor, masked_target_tensor = tf.mul(output_tensor, mask), tf.mul(target_tensor, mask)
+        nonmasked_output_tensor, nonmasked_target_tensor = tf.mul(output_tensor, tf.sub(tf.ones_like(mask),mask)),\
+                                                            tf.mul(target_tensor, tf.sub(tf.ones_like(mask),mask))
+        masked_l2_cost = tf.nn.l2_loss(masked_target_tensor - masked_output_tensor) * 2
+        nonmasked_l2_cost = tf.nn.l2_loss(nonmasked_target_tensor - nonmasked_output_tensor) * 2
+
+        return 5*masked_l2_cost + nonmasked_l2_cost
+
+    else:
+        lr_cost = tf.reduce_sum(-target_tensor * tf.log(output_tensor + epsilon) -
+                                (1.0 - target_tensor) * tf.log(1.0 - output_tensor + epsilon))
+        l2_cost = tf.nn.l2_loss(target_tensor - output_tensor) * 2
+        return l2_cost
 
 
 if __name__ == "__main__":
@@ -189,7 +186,7 @@ if __name__ == "__main__":
     d_loss_sum = tf.scalar_summary("d_loss", d_loss)
     t_vars = tf.trainable_variables()
     d_vars = [var for var in t_vars if 'd_' in var.name]
-    d_optim = tf.train.AdamOptimizer(FLAGS.d_learning_rate/10, beta1=FLAGS.beta1) \
+    d_optim = tf.train.AdamOptimizer(FLAGS.d_learning_rate, beta1=FLAGS.beta1) \
         .minimize(d_loss, var_list=d_vars)
 
     # Restorer adverse Discriminator
