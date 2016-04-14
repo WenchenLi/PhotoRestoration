@@ -7,6 +7,8 @@ Generative Convolutional Net for photo restoration
 
 ## TODO
 * maybe we need to train a separate super resolution network and fine tune after separate training
+    ( one approach could be using the idea from neural art style /perceptual loss: using feature representation to reconstruct the whole 
+    image after initial reconstruction as a prior
 * mask shape should be more distinct 
 * rewrite encoder without pretty tensor
 * write indicator when to stop training( equilibrium?)
