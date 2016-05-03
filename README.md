@@ -1,3 +1,5 @@
+# deprecated
+We have moved to [here](https://github.com/averyallen71/dcgan-denosing-autoencoder). 
 # PhotoRestoration
 ![alt text](http://www.crosswaysimages.ca/wp-content/uploads/2015/04/photo-restoration.jpg?quality=100.3015041915160)
 
