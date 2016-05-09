@@ -1,4 +1,6 @@
 # deprecated
+We are the highlighted projects for advance computer vision class.[Our result page](http://www.cc.gatech.edu/~hays/7476/projects/Avery_Wenchen/)
+
 We have moved to [here](https://github.com/averyallen71/dcgan-denosing-autoencoder). 
 # PhotoRestoration
 ![alt text](http://www.crosswaysimages.ca/wp-content/uploads/2015/04/photo-restoration.jpg?quality=100.3015041915160)
